@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PlanarsatInder.iml" filepath="$PROJECT_DIR$/PlanarsatInder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlanarsatInderCenatel.iml" filepath="$PROJECT_DIR$/PlanarsatInderCenatel.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

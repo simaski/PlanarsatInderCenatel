@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="titulo_cenatel">Centro Nacional de Teledetección con Fines Agricolas</string>
+    <string name="correo_cenatel">cenatel.venezuela@gmail.com</string>
+    <string name="op_datos">Datos</string>
+    <string name="op_puntos">Puntos</string>
+    <string name="op_enviar_datos">Enviar Datos</string>
 </resources>
