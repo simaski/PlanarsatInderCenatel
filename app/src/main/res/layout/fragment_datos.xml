@@ -32,6 +32,132 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tv_inspector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/abc_action_bar_default_height_material"
+                android:text="@string/op_inspector"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_inspector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_inspector"
+                android:ems="10"
+                android:hint="Escribe Nombre Inspector" />
+
+            <TextView
+                android:id="@+id/tv_fechaCaptura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/et_inspector"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_fechaCaptura"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_fechaCaptura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_fechaCaptura"
+                android:editable="false" />
+
+            <TextView
+                android:id="@+id/tv_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_fechaCaptura"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_estado"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_estado"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_municipio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_estado"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_municipio"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_municipio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_municipio"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_parroquia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_municipio"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_parroquia"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_parroquia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_parroquia"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_sector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_parroquia"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_sector"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_sector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_sector"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_tipoObra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_sector"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipoObra"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObra"
+                android:longClickable="true" />
+
+            <TextView
                 android:id="@+id/tvResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

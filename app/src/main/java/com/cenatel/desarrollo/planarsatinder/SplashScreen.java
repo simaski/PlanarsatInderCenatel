@@ -13,7 +13,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 public class SplashScreen extends Activity {
-    private final int SPLASH_TIME = 3000;
+    private final int SPLASH_TIME = 2000;
     int densidad;
     int ancho;
 

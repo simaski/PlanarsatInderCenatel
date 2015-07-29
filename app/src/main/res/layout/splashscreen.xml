@@ -22,6 +22,6 @@
         android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/splash" >
+        android:background="@drawable/splashinder" >
     </RelativeLayout>
 </LinearLayout>

@@ -130,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
             //Toast tosat2 = Toast.makeText(getApplicationContext(),"Funciona!!!!", Toast.LENGTH_SHORT ); tosat2.show();
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             // Setting Dialog Title
-            alertDialog.setTitle("Salir de la Aplicación");
+            alertDialog.setTitle("Salir de la Aplicaci\u00f3n");
             // Setting Dialog Message
-            alertDialog.setMessage("¿Quieres salir de la aplicación?");
+            alertDialog.setMessage("\u00bfQuieres salir de la aplicaci\u00f3n?");
             // Setting Icon to Dialog
             // alertDialog.setIcon(R.drawable.delete);
             // On pressing Settings button

@@ -9,4 +9,22 @@
     <string name="op_datos">Datos</string>
     <string name="op_puntos">Puntos</string>
     <string name="op_enviar_datos">Enviar Datos</string>
+    <!-- fragment datos-->
+    <string name="op_inspector">Nombre Inspector</string>
+    <string name="op_fechaCaptura">Fecha de Captura</string>
+    <string name="op_estado">Estado</string>
+    <string name="op_municipio">Municipio</string>
+    <string name="op_parroquia">Parroquia</string>
+    <string name="op_sector">Sector</string>
+    <string name="op_tipoObra">Tipo de Obra</string>
+    <string name="op_nombreFinca">Nombre de Finca</string>
+    <string name="op_tipoCultivo">Tipo de Cultivo</string>
+    <string name="op_fechaSiembra">Fecha de Siembra</string>
+    <string name="op_variedad">Variedad</string>
+    <string name="op_etapaFenologica">Etapa Fenologica</string>
+    <string name="op_condicion">Condicion</string>
+    <string name="op_numeroLote">Numero de Lote</string>
+    <string name="op_observacion">Observacion</string>
+    <string name="op_btCapturar">Capturar</string>
+    <string name="op_btEnviar">Enviar</string>
 </resources>
