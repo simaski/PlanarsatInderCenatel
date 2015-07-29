@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.item_navigation_drawer_inbox:
                                 menuItem.setChecked(true);
                                 //textView.setText(menuItem.getTitle());
+                                //actionBar.setTitle(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 DatosFragment fragment = new DatosFragment();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -158,5 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
+    public void setActionBarTitle(String title){
+        actionBar.setTitle(title);
+    }
 }

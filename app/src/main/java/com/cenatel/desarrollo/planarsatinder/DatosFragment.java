@@ -31,7 +31,7 @@ public class DatosFragment extends Fragment implements LocationListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_datos, container, false);
-
+        ((MainActivity) getActivity()).setActionBarTitle("dartos sssws");
         spi_Estados = (Spinner) v.findViewById(R.id.spi_estado);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);

@@ -28,7 +28,8 @@
     </string-array>
 
     <string-array name="array_tipoObra">
-        <item>Suelo Sistema de Riego</item>
+        <item>Seleccione una opción</item>
+        <item>Sistema de Riego</item>
         <item>Edificación</item>
         <item>Vialidad</item>
     </string-array>
