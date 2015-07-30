@@ -1,9 +1,12 @@
 package com.cenatel.desarrollo.planarsatinder;
 
+import android.content.DialogInterface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,7 @@ import android.view.ViewGroup;
 public class SistemaDeRiego extends Fragment implements LocationListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_datos, container, false);
+        View v = inflater.inflate(R.layout.fragment_sistemariego, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego");
         return v;
     }
@@ -38,4 +41,15 @@ public class SistemaDeRiego extends Fragment implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+            DatosFragment fragment = new DatosFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment);
+            fragmentTransaction.commit();
+        }
+        return true;
+    }
+
 }

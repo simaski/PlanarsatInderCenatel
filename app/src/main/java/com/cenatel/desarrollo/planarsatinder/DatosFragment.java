@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * Created by San Casimiro on 29/07/2015.
@@ -96,6 +97,29 @@ public class DatosFragment extends Fragment implements LocationListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spi_TipoObraR = spi_TipoObra.getSelectedItem().toString();
+                //Toast.makeText(getActivity(), "Spinner1: position=" + position + " id=" + id, Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 1:
+                        SistemaDeRiego fragment = new SistemaDeRiego();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.commit();
+
+                        break;
+                    case 2:
+                        Toast.makeText(getActivity(), "numero 2", Toast.LENGTH_SHORT).show();
+                                /*PuntosFragment fragment2 = new PuntosFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction2.replace(R.id.frame, fragment2);
+                                fragmentTransaction2.commit();*/
+                        break;
+                    case 3:
+                                /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction3.replace(R.id.frame, fragment3);
+                                fragmentTransaction3.commit();*/
+                        break;
+                    }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

@@ -32,129 +32,75 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/tv_inspector"
+                android:id="@+id/tv_nombreSistema"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/abc_action_bar_default_height_material"
-                android:text="@string/op_inspector"
+                android:text="@string/op_nombreSistema"
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
             <EditText
-                android:id="@+id/et_inspector"
+                android:id="@+id/et_nombreSistema"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_inspector"
+                android:layout_below="@+id/tv_nombreSistema"
                 android:ems="10"
-                android:hint="Escribe Nombre Inspector" />
+                android:hint="Escribe Nombre del Sistema" />
 
             <TextView
-                android:id="@+id/tv_fechaCaptura"
+                android:id="@+id/tv_ocaptacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/et_inspector"
+                android:layout_below="@+id/et_nombreSistema"
                 android:layout_marginTop="10dp"
-                android:text="@string/op_fechaCaptura"
-                android:textColor="@color/md_text"
-                android:textSize="21sp" />
-
-            <EditText
-                android:id="@+id/et_fechaCaptura"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_fechaCaptura"
-                android:editable="false" />
-
-            <TextView
-                android:id="@+id/tv_estado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_fechaCaptura"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_estado"
+                android:text="@string/op_ocaptacion"
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
             <Spinner
-                android:id="@+id/spi_estado"
+                android:id="@+id/spi_ocaptacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_estado"
+                android:layout_below="@+id/tv_ocaptacion"
                 android:longClickable="true" />
 
             <TextView
-                android:id="@+id/tv_municipio"
+                android:id="@+id/tv_oconduccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_estado"
+                android:layout_below="@+id/spi_ocaptacion"
                 android:layout_marginTop="10dp"
-                android:text="@string/op_municipio"
+                android:text="@string/op_oconduccion"
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
             <Spinner
-                android:id="@+id/spi_municipio"
+                android:id="@+id/spi_oconduccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_municipio"
+                android:layout_below="@+id/tv_oconduccion"
                 android:longClickable="true" />
 
             <TextView
-                android:id="@+id/tv_parroquia"
+                android:id="@+id/tv_odistribucion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_municipio"
+                android:layout_below="@+id/spi_oconduccion"
                 android:layout_marginTop="10dp"
-                android:text="@string/op_parroquia"
+                android:text="@string/op_odistribucion"
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
             <Spinner
-                android:id="@+id/spi_parroquia"
+                android:id="@+id/spi_odistribucion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_parroquia"
-                android:longClickable="true" />
-
-            <TextView
-                android:id="@+id/tv_sector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_parroquia"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_sector"
-                android:textColor="@color/md_text"
-                android:textSize="21sp" />
-
-            <Spinner
-                android:id="@+id/spi_sector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_sector"
-                android:longClickable="true" />
-
-            <TextView
-                android:id="@+id/tv_tipoObra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_sector"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_tipoObra"
-                android:textColor="@color/md_text"
-                android:textSize="21sp" />
-
-            <Spinner
-                android:id="@+id/spi_tipoObra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_tipoObra"
+                android:layout_below="@+id/tv_odistribucion"
                 android:longClickable="true" />
 
             <TextView

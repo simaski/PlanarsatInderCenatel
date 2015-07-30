@@ -17,6 +17,10 @@
     <string name="op_parroquia">Parroquia</string>
     <string name="op_sector">Sector</string>
     <string name="op_tipoObra">Tipo de Obra</string>
+    <string name="op_nombreSistema">Nombre Sistema de Riego</string>
+    <string name="op_ocaptacion">Obra de Captación</string>
+    <string name="op_oconduccion">Obra de Conducción</string>
+    <string name="op_odistribucion">Obra de Distribución</string>
     <string name="op_observacion">Observacion</string>
     <string name="op_btCapturar">Capturar</string>
     <string name="op_btEnviar">Enviar</string>
