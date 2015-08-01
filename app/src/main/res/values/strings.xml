@@ -19,6 +19,8 @@
     <string name="op_tipoObra">Tipo de Obra</string>
     <string name="op_nombreSistema">Nombre Sistema de Riego</string>
     <string name="op_ocaptacion">Obra de Captación</string>
+    <string name="op_tipo">Tipo:</string>
+    <string name="op_capacidad">Capacidad:</string>
     <string name="op_oconduccion">Obra de Conducción</string>
     <string name="op_odistribucion">Obra de Distribución</string>
     <string name="op_observacion">Observacion</string>

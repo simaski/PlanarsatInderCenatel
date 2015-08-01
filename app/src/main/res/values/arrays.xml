@@ -33,4 +33,12 @@
         <item>Edificación</item>
         <item>Vialidad</item>
     </string-array>
+
+    <string-array name="array_tipoObraCaptacion">
+        <item>Seleccione una opción</item>
+        <item>Embalse</item>
+        <item>Derivación</item>
+        <item>Pozo</item>
+        <item>Laguna</item>
+    </string-array>
 </resources>

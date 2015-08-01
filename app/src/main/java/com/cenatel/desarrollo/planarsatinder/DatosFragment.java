@@ -9,8 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by San Casimiro on 29/07/2015.
@@ -22,6 +27,12 @@ public class DatosFragment extends Fragment implements LocationListener {
     public Spinner spi_Parroquias;
     public Spinner spi_Sector;
     public Spinner spi_TipoObra;
+    public Spinner spi_tipoObraCaptacion;
+
+    public TextView tv_ObraCaptacion;
+    public TextView tv_tipoObraCaptacion;
+
+    public EditText et_fechaCaptura;
 
     public String spi_EstadosR;
     public String spi_MunicipiosR;
@@ -29,10 +40,29 @@ public class DatosFragment extends Fragment implements LocationListener {
     public String spi_SectorR;
     public String spi_TipoObraR;
 
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+
+    private Calendar c;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_datos, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Planarsat Inder");
+
+        tv_ObraCaptacion = (TextView) v.findViewById(R.id.tv_ocaptacion);
+        tv_tipoObraCaptacion = (TextView) v.findViewById(R.id.tv_tipoObraCaptacion);
+        spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
+
+        c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH) + 1;
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        et_fechaCaptura = (EditText) v.findViewById(R.id.et_fechaCaptura);
+        et_fechaCaptura.setText(sdf.format(c.getTime()));
+
         spi_Estados = (Spinner) v.findViewById(R.id.spi_estado);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -42,6 +72,7 @@ public class DatosFragment extends Fragment implements LocationListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spi_EstadosR = spi_Estados.getSelectedItem().toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -100,7 +131,37 @@ public class DatosFragment extends Fragment implements LocationListener {
                 //Toast.makeText(getActivity(), "Spinner1: position=" + position + " id=" + id, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 1:
-                        SistemaDeRiego fragment = new SistemaDeRiego();
+                        ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego");
+                        tv_ObraCaptacion.setVisibility(View.VISIBLE);
+                        tv_tipoObraCaptacion.setVisibility(View.VISIBLE);
+                        spi_tipoObraCaptacion.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                                /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction3.replace(R.id.frame, fragment3);
+                                fragmentTransaction3.commit();*/
+                        break;
+                    }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        ArrayAdapter adapter6 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraCaptacion, android.R.layout.simple_spinner_item);
+        adapter6.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_tipoObraCaptacion.setAdapter(adapter6);
+        spi_tipoObraCaptacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 1:
+                        SistemaDeRiegoEmbalse fragment = new SistemaDeRiegoEmbalse();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.frame, fragment);
                         fragmentTransaction.commit();
@@ -119,8 +180,9 @@ public class DatosFragment extends Fragment implements LocationListener {
                                 fragmentTransaction3.replace(R.id.frame, fragment3);
                                 fragmentTransaction3.commit();*/
                         break;
-                    }
+                }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }

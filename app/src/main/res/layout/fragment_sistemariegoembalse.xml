@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/status_bar_height">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ToolbarTheme" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_nombreSistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/abc_action_bar_default_height_material"
+                android:text="@string/op_nombreSistema"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_nombreSistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_nombreSistema"
+                android:ems="10"
+                android:hint="Escribe Nombre del Sistema" />
+
+            <TextView
+                android:id="@+id/tv_ocaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_nombreSistema"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_ocaptacion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ocaptacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObracaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraCaptacion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObracaptacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraCaptacion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraCaptacion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraCaptacion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraCaptacion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_oconduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_oconduccion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_oconduccion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObraconduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraConduccion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObraconduccion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraConduccion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraConduccion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraConduccion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraConduccion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_odistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_odistribucion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_odistribucion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObradistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraDistribucion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObradistribucion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraDistribucion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraDistribucion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraDistribucion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraDistribucion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvResultado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aqui va el texto" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

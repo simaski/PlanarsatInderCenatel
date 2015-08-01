@@ -158,6 +158,37 @@
                 android:longClickable="true" />
 
             <TextView
+                android:id="@+id/tv_ocaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObra"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_ocaptacion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ocaptacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObracaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraCaptacion"
+                android:longClickable="true"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/tvResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
