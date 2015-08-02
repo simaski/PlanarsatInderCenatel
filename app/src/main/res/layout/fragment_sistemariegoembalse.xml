@@ -241,14 +241,276 @@
                     android:text="m\u00b3/s"
                     android:textColor="@color/md_text"
                     android:textSize="21sp" />
-
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvResultado"
+                android:id="@+id/tv_embalse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aqui va el texto" />
+                android:layout_below="@+id/linearLayout3"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_embalse"
+                android:textColor="@color/md_green_500"
+                android:textStyle="bold"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_dique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_embalse"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_dique"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_dique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_dique"
+                android:longClickable="true" />
+
+            <TextView
+            android:id="@+id/tv_longitudembalse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spi_dique"
+            android:layout_marginTop="10dp"
+            android:text="@string/op_longitud"
+            android:textColor="@color/md_text"
+            android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_longitudembalse">
+
+                <EditText
+                    android:id="@+id/et_longitudembalse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_longitudembalse"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_longitudembalse2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(m)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_alturaembalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout4"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_altura"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_alturaembalse">
+
+                <EditText
+                    android:id="@+id/et_alturaembalse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_alturaembalse"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_alturaembalse2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(m)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_espejoembalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout5"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_espejo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_espejoembalse">
+
+                <EditText
+                    android:id="@+id/et_espejoembalse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_espejoembalse"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_espejoembalse2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(ha)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_toma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout6"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_toma"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoToma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_toma"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_tipoToma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoToma"
+                android:ems="10"
+                android:hint="Escriba Capacidad" />
+
+            <TextView
+                android:id="@+id/tv_capacidadToma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_tipoToma"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadToma">
+
+                <EditText
+                    android:id="@+id/et_capacidadToma"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadToma"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadToma2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_aliviadero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout7"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_aliviadero"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoaliviadero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_aliviadero"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_tipoAliviadero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoaliviadero"
+                android:ems="10"
+                android:hint="Escriba Capacidad" />
+
+            <TextView
+                android:id="@+id/tv_capacidadAliviadero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_tipoAliviadero"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadAliviadero">
+
+                <EditText
+                    android:id="@+id/et_capacidadAliviadero"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadAliviadero"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadAliviadero2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

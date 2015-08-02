@@ -23,6 +23,13 @@
     <string name="op_capacidad">Capacidad:</string>
     <string name="op_oconduccion">Obra de Conducción</string>
     <string name="op_odistribucion">Obra de Distribución</string>
+    <string name="op_embalse"><u>EMBALSE</u></string>
+    <string name="op_dique">Dique</string>
+    <string name="op_longitud">Longitud</string>
+    <string name="op_altura">Altura</string>
+    <string name="op_espejo">Espejo de Agua</string>
+    <string name="op_toma">Toma</string>
+    <string name="op_aliviadero">Aliviadero</string>
     <string name="op_observacion">Observacion</string>
     <string name="op_btCapturar">Capturar</string>
     <string name="op_btEnviar">Enviar</string>

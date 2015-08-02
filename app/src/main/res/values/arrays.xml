@@ -30,8 +30,8 @@
     <string-array name="array_tipoObra">
         <item>Seleccione una opción</item>
         <item>Sistema de Riego</item>
-        <item>Edificación</item>
         <item>Vialidad</item>
+        <item>Edificación</item>
     </string-array>
 
     <string-array name="array_tipoObraCaptacion">
