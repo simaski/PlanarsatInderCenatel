@@ -41,4 +41,10 @@
         <item>Pozo</item>
         <item>Laguna</item>
     </string-array>
+
+    <string-array name="array_metodosriego">
+        <item>Pivotes</item>
+        <item>Goteo</item>
+        <item>Gravedad</item>
+    </string-array>
 </resources>

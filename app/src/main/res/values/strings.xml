@@ -17,6 +17,7 @@
     <string name="op_parroquia">Parroquia</string>
     <string name="op_sector">Sector</string>
     <string name="op_tipoObra">Tipo de Obra</string>
+    <!-- fragment sistema de riego: embalse-->
     <string name="op_nombreSistema">Nombre Sistema de Riego</string>
     <string name="op_ocaptacion">Obra de Captación</string>
     <string name="op_tipo">Tipo:</string>
@@ -30,7 +31,19 @@
     <string name="op_espejo">Espejo de Agua</string>
     <string name="op_toma">Toma</string>
     <string name="op_aliviadero">Aliviadero</string>
-    <string name="op_observacion">Observacion</string>
+    <string name="op_areaderiego"><u>Area de Riego</u></string>
+    <string name="op_superficie">Superficie</string>
+    <string name="op_cultivos">Cultivos</string>
+    <string name="op_metodosriego">Metodos de Riego</string>
+    <string name="op_arearegable">Area Regable</string>
+    <string name="op_areabajoriego">Area Bajo Riego</string>
+    <string name="op_arearegada">Area Regada</string>
+    <!-- fragment sistema de riego: embalse-->
+    <string name="op_derivacion"><u>DERIVACI\u00d3N</u></string>
+    <string name="op_desarenador">Desarenador</string>
+
+    <string name="op_problemas">Problemas</string>
+    <string name="op_observaciones">Observaciones</string>
     <string name="op_btCapturar">Capturar</string>
     <string name="op_btEnviar">Enviar</string>
 </resources>

@@ -168,13 +168,18 @@ public class DatosFragment extends Fragment implements LocationListener {
 
                         break;
                     case 2:
-                        Toast.makeText(getActivity(), "numero 2", Toast.LENGTH_SHORT).show();
+                        SistemaDeRiegoDerivacion fragment1 = new SistemaDeRiegoDerivacion();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
+                        fragmentTransaction1.replace(R.id.frame, fragment1);
+                        fragmentTransaction1.commit();
+
                                 /*PuntosFragment fragment2 = new PuntosFragment();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction2.replace(R.id.frame, fragment2);
                                 fragmentTransaction2.commit();*/
                         break;
                     case 3:
+                        Toast.makeText(getActivity(), "numero 3", Toast.LENGTH_SHORT).show();
                                 /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction3.replace(R.id.frame, fragment3);
