@@ -128,6 +128,7 @@ public class DatosFragment extends Fragment implements LocationListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spi_TipoObraR = spi_TipoObra.getSelectedItem().toString();
+
                 //Toast.makeText(getActivity(), "Spinner1: position=" + position + " id=" + id, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 1:
@@ -164,7 +165,10 @@ public class DatosFragment extends Fragment implements LocationListener {
                         SistemaDeRiegoEmbalse fragment = new SistemaDeRiegoEmbalse();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+                        position = 0;
+
 
                         break;
                     case 2:
@@ -186,11 +190,15 @@ public class DatosFragment extends Fragment implements LocationListener {
                                 fragmentTransaction3.commit();*/
                         break;
                 }
+                spi_tipoObraCaptacion.setSelection(0);
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
+
+
         });
 
 

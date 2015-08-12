@@ -68,7 +68,6 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
             DatosFragment fragment = new DatosFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame, fragment);
             fragmentTransaction.commit();
         }
         return true;

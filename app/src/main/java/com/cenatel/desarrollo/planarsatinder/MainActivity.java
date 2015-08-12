@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                                 DatosFragment fragment = new DatosFragment();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.frame, fragment);
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                                 return true;
                             case R.id.item_navigation_drawer_starred:
@@ -125,11 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+   public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
             //backButton = true;
             //Toast tosat2 = Toast.makeText(getApplicationContext(),"Funciona!!!!", Toast.LENGTH_SHORT ); tosat2.show();
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+           /* AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             // Setting Dialog Title
             alertDialog.setTitle("Salir de la Aplicaci\u00f3n");
             // Setting Dialog Message
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
             // Showing Alert Message
-            alertDialog.show();
+            alertDialog.show();*/
         }
         return true;
     }
