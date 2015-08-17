@@ -244,39 +244,21 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_derivacion"
+                android:id="@+id/tv_laguna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout3"
                 android:layout_marginTop="10dp"
-                android:text="@string/op_derivacion"
+                android:text="@string/op_laguna"
                 android:textColor="@color/md_green_500"
                 android:textStyle="bold"
                 android:textSize="21sp" />
 
             <TextView
-                android:id="@+id/tv_tipoderivacion"
+                android:id="@+id/tv_capacidadlaguna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_derivacion"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_tipo"
-                android:textColor="@color/md_text"
-                android:textSize="21sp" />
-
-            <Spinner
-                android:id="@+id/spi_tipoderivacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_tipoderivacion"
-                android:longClickable="true" />
-
-            <TextView
-                android:id="@+id/tv_capacidadderivacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_tipoderivacion"
+                android:layout_below="@+id/tv_laguna"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_capacidad"
                 android:textColor="@color/md_text"
@@ -286,45 +268,35 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_capacidadderivacion">
+                android:layout_below="@id/tv_capacidadlaguna">
 
                 <EditText
-                    android:id="@+id/et_capacidadderivacion"
+                    android:id="@+id/et_capacidadlaguna"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/tv_capacidadderivacion"
+                    android:layout_below="@+id/tv_capacidadlaguna"
                     android:ems="10"
                     android:hint="Escriba Capacidad"
                     android:layout_weight="3"/>
 
                 <TextView
-                    android:id="@+id/tv_capacidadderivacion2"
+                    android:id="@+id/tv_capacidadlaguna2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="(m\u00b3/s)"
+                    android:text="(m\u00b3)"
                     android:textColor="@color/md_text"
                     android:textSize="21sp" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_desarenador"
+                android:id="@+id/tv_espejodeagualaguna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linearLayout4"
                 android:layout_marginTop="10dp"
-                android:text="@string/op_desarenador"
-                android:textColor="@color/md_green_500"
-                android:textSize="21sp" />
-
-            <TextView
-                android:id="@+id/tv_capacidaddesarenador"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_desarenador"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_capacidad"
+                android:text="@string/op_espejo"
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
@@ -332,24 +304,24 @@
                 android:id="@+id/linearLayout7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_capacidaddesarenador">
+                android:layout_below="@id/tv_espejodeagualaguna">
 
                 <EditText
                     android:id="@+id/et_capacidaddesarenador"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/tv_capacidaddesarenador"
+                    android:layout_below="@+id/tv_espejodeagualaguna"
                     android:ems="10"
-                    android:hint="Escriba Capacidad"
+                    android:hint="Escriba Longitud"
                     android:layout_weight="3"/>
 
                 <TextView
-                    android:id="@+id/tv_capacidaddesarenador2"
+                    android:id="@+id/tv_espejodeagualaguna2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="m\u00b3/s"
+                    android:text="(ha)"
                     android:textColor="@color/md_text"
                     android:textSize="21sp" />
             </LinearLayout>

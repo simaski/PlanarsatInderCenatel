@@ -50,6 +50,8 @@
 
     <string name="op_pozo"><u>POZO</u></string>
 
+    <string name="op_laguna"><u>LAGUNA</u></string>
+
 
     <string name="op_problemas">Problemas</string>
     <string name="op_observaciones">Observaciones</string>
