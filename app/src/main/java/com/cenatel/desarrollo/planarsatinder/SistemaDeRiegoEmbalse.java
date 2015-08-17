@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * Created by San Casimiro on 29/07/2015.
@@ -24,6 +25,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegoembalse, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Embalse");
+        ((MainActivity) getActivity()).setVariable(1);
 
         spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraCaptacion, android.R.layout.simple_spinner_item);
@@ -63,14 +65,4 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-            DatosFragment fragment = new DatosFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.commit();
-        }
-        return true;
-    }
-
 }

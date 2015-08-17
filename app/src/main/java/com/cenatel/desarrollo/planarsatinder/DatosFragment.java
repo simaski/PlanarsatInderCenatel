@@ -1,12 +1,15 @@
 package com.cenatel.desarrollo.planarsatinder;
 
+import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -33,6 +36,7 @@ public class DatosFragment extends Fragment implements LocationListener {
     public TextView tv_tipoObraCaptacion;
 
     public EditText et_fechaCaptura;
+    public EditText et_inspector;
 
     public String spi_EstadosR;
     public String spi_MunicipiosR;
@@ -49,10 +53,15 @@ public class DatosFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_datos, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Planarsat Inder");
+        ((MainActivity) getActivity()).setVariable(0);
 
         tv_ObraCaptacion = (TextView) v.findViewById(R.id.tv_ocaptacion);
         tv_tipoObraCaptacion = (TextView) v.findViewById(R.id.tv_tipoObraCaptacion);
         spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
+
+       //**************Ocultar el teclado por defecto hasta el touch en el edittext***********************//
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //***********************************************************************************************//
 
         c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -60,6 +69,7 @@ public class DatosFragment extends Fragment implements LocationListener {
         mDay = c.get(Calendar.DAY_OF_MONTH);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+        et_inspector = (EditText) v.findViewById(R.id.et_inspector);
         et_fechaCaptura = (EditText) v.findViewById(R.id.et_fechaCaptura);
         et_fechaCaptura.setText(sdf.format(c.getTime()));
 
@@ -175,6 +185,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                         SistemaDeRiegoDerivacion fragment1 = new SistemaDeRiegoDerivacion();
                         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
                         fragmentTransaction1.replace(R.id.frame, fragment1);
+                        fragmentTransaction1.addToBackStack(null);
                         fragmentTransaction1.commit();
 
                                 /*PuntosFragment fragment2 = new PuntosFragment();
@@ -224,4 +235,5 @@ public class DatosFragment extends Fragment implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
 }

@@ -16,6 +16,7 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegoderivacion, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Derivacion");
+        ((MainActivity) getActivity()).setVariable(1);
 
         return v;
     }

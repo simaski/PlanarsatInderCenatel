@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar actionBar;
     TextView textView;
+    int unicode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        unicode = 0;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -126,41 +129,56 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-   public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-            //backButton = true;
-            //Toast tosat2 = Toast.makeText(getApplicationContext(),"Funciona!!!!", Toast.LENGTH_SHORT ); tosat2.show();
-           /* AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            // Setting Dialog Title
-            alertDialog.setTitle("Salir de la Aplicaci\u00f3n");
-            // Setting Dialog Message
-            alertDialog.setMessage("\u00bfQuieres salir de la aplicaci\u00f3n?");
-            // Setting Icon to Dialog
-            // alertDialog.setIcon(R.drawable.delete);
-            // On pressing Settings button
-            alertDialog.setPositiveButton("No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-            // on pressing cancel button
-            alertDialog.setNegativeButton("Si",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            //moveTaskToBack(true);
-                            //locationManager.removeUpdates(locListener);
-                            //hand.removeCallbacks(actualizar);
-                            MainActivity.this.finish();
-                            //onStop();
-                        }
-                    });
-            // Showing Alert Message
-            alertDialog.show();*/
+            switch (unicode) {
+                case 0:
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                    // Setting Dialog Title
+                    alertDialog.setTitle("Salir de la Aplicaci\u00f3n");
+                    // Setting Dialog Message
+                    alertDialog.setMessage("\u00bfQuieres salir de la aplicaci\u00f3n?");
+                    // Setting Icon to Dialog
+                    // alertDialog.setIcon(R.drawable.delete);
+                    // On pressing Settings button
+                    alertDialog.setPositiveButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    // on pressing cancel button
+                    alertDialog.setNegativeButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.this.finish();
+                                }
+                            });
+                    // Showing Alert Message
+                    alertDialog.show();
+                    break;
+                case 1:
+                    DatosFragment fragment = new DatosFragment();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.frame, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    return true;
+            }
+
         }
         return true;
     }
-    public void setActionBarTitle(String title){
+
+
+    public void setActionBarTitle(String title) {
         actionBar.setTitle(title);
     }
+
+    public void setVariable(int var) {
+        unicode = var;
+    }
+
+
 }
