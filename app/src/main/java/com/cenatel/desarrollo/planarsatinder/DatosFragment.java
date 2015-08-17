@@ -178,8 +178,6 @@ public class DatosFragment extends Fragment implements LocationListener {
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         position = 0;
-
-
                         break;
                     case 2:
                         SistemaDeRiegoDerivacion fragment1 = new SistemaDeRiegoDerivacion();
@@ -187,18 +185,20 @@ public class DatosFragment extends Fragment implements LocationListener {
                         fragmentTransaction1.replace(R.id.frame, fragment1);
                         fragmentTransaction1.addToBackStack(null);
                         fragmentTransaction1.commit();
-
-                                /*PuntosFragment fragment2 = new PuntosFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction2.replace(R.id.frame, fragment2);
-                                fragmentTransaction2.commit();*/
                         break;
                     case 3:
-                        Toast.makeText(getActivity(), "numero 3", Toast.LENGTH_SHORT).show();
-                                /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction3.replace(R.id.frame, fragment3);
-                                fragmentTransaction3.commit();*/
+                        SistemaDeRiegoPozo fragment2 = new SistemaDeRiegoPozo();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction();
+                        fragmentTransaction2.replace(R.id.frame, fragment2);
+                        fragmentTransaction2.addToBackStack(null);
+                        fragmentTransaction2.commit();
+                        break;
+                    case 4:
+                        SistemaDeRiegoLaguna fragment3 = new SistemaDeRiegoLaguna();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction3 = getFragmentManager().beginTransaction();
+                        fragmentTransaction3.replace(R.id.frame, fragment3);
+                        fragmentTransaction3.addToBackStack(null);
+                        fragmentTransaction3.commit();
                         break;
                 }
                 spi_tipoObraCaptacion.setSelection(0);

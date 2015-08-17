@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/status_bar_height">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ToolbarTheme" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_nombreSistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/abc_action_bar_default_height_material"
+                android:text="@string/op_nombreSistema"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_nombreSistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_nombreSistema"
+                android:ems="10"
+                android:hint="Escribe Nombre del Sistema" />
+
+            <TextView
+                android:id="@+id/tv_ocaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_nombreSistema"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_ocaptacion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ocaptacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObracaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraCaptacion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObracaptacion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraCaptacion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraCaptacion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraCaptacion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraCaptacion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_oconduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_oconduccion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_oconduccion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObraconduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraConduccion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObraconduccion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraConduccion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraConduccion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraConduccion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraConduccion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_odistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_odistribucion"
+                android:textColor="@color/md_green_500"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_tipoObraDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_odistribucion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipo"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipoObradistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipoObraDistribucion"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_capacidadObraDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipoObradistribucion"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_capacidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_capacidadObraDistribucion">
+
+                <EditText
+                    android:id="@+id/et_capacidadObraDistribucion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_capacidadObraDistribucion"
+                    android:ems="10"
+                    android:hint="Escriba Capacidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_capacidadObraDistribucion2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="m\u00b3/s"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_pozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout3"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_pozo"
+                android:textColor="@color/md_green_500"
+                android:textStyle="bold"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_profundidadpozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pozo"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_profundidad"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_profundidadpozo">
+
+                <EditText
+                    android:id="@+id/et_profundidadpozo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_profundidadpozo"
+                    android:ems="10"
+                    android:hint="Escriba Profundidad"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_profundidadpozo2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(m)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_diametropozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout4"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_diametro"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_diametropozo">
+
+                <EditText
+                    android:id="@+id/et_diametropozo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_diametropozo"
+                    android:ems="10"
+                    android:hint="Escriba Diametro"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_diametropozo2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(pulg)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_caudalpozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout7"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_caudal"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_caudalpozo">
+
+                <EditText
+                    android:id="@+id/et_caudalpozo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_caudalpozo"
+                    android:ems="10"
+                    android:hint="Escriba Caudal"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_caudalpozo2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(l/s)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_calidadaguapozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout8"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_calidadagua"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_calidadaguapozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_calidadaguapozo"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_abatimientopozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_calidadaguapozo"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_abatimiento"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_abatimientopozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_abatimientopozo"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_tipobombapozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_abatimientopozo"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipobomba"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipobombapozo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipobombapozo"
+                android:longClickable="true" />
+
+
+            <TextView
+                android:id="@+id/tv_areaderiego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipobombapozo"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_areaderiego"
+                android:textColor="@color/md_green_500"
+                android:textStyle="bold"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_superficieriego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_areaderiego"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_superficie"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_superficieriego">
+
+                <EditText
+                    android:id="@+id/et_superficieriego"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_superficieriego"
+                    android:ems="10"
+                    android:hint="Escriba Superficie"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_superficieriego2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(ha)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_cultivos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout9"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_cultivos"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_cultivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_cultivos"
+                android:ems="10"
+                android:hint="Escriba cultivos" />
+
+            <TextView
+                android:id="@+id/tv_metodosriego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_cultivos"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_metodosriego"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_metodosriego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_metodosriego"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/tv_arearegable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_metodosriego"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_arearegable"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_arearegable">
+
+                <EditText
+                    android:id="@+id/et_arearegable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_arearegable"
+                    android:ems="10"
+                    android:hint="Escriba area regable"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_arearegable2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(ha)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_areabajoriego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout10"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_areabajoriego"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_areabajoriego">
+
+                <EditText
+                    android:id="@+id/et_areabajoriego"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_areabajoriego"
+                    android:ems="10"
+                    android:hint="Escriba area bajo riego"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_areabajoriego2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(ha)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_arearegada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout11"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_arearegada"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_arearegada">
+
+                <EditText
+                    android:id="@+id/et_arearegada"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_arearegada"
+                    android:ems="10"
+                    android:hint="Escriba area regada"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_arearegada2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(ha)"
+                    android:textColor="@color/md_text"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_problemas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout12"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_problemas"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_problemas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_problemas"
+                android:ems="10"
+                android:hint="Escriba Problemas Encontrados" />
+
+            <TextView
+                android:id="@+id/tv_observaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_problemas"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_observaciones"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_observaciones"
+                android:ems="10"
+                android:hint="Escriba Soluciones" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_observaciones">
+
+                <Button
+                    android:id="@+id/bt_enviar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_observaciones"
+                    android:layout_centerInParent="true"
+                    android:text="@string/op_btEnviar"
+                    android:layout_weight="2" />
+
+                <Button
+                    android:id="@+id/bt_ver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bt_enviar"
+                    android:layout_centerInParent="true"
+                    android:text="Ver"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

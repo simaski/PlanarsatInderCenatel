@@ -22,6 +22,12 @@
     <string name="op_ocaptacion">Obra de Captación</string>
     <string name="op_tipo">Tipo:</string>
     <string name="op_capacidad">Capacidad:</string>
+    <string name="op_profundidad">Profundidad:</string>
+    <string name="op_diametro">Diametro:</string>
+    <string name="op_caudal">Caudal:</string>
+    <string name="op_calidadagua">Calidad del agua:</string>
+    <string name="op_abatimiento">Abatimiento:</string>
+    <string name="op_tipobomba">Tipo de Bomba:</string>
     <string name="op_oconduccion">Obra de Conducción</string>
     <string name="op_odistribucion">Obra de Distribución</string>
     <string name="op_embalse"><u>EMBALSE</u></string>
@@ -41,6 +47,9 @@
     <!-- fragment sistema de riego: embalse-->
     <string name="op_derivacion"><u>DERIVACI\u00d3N</u></string>
     <string name="op_desarenador">Desarenador</string>
+
+    <string name="op_pozo"><u>POZO</u></string>
+
 
     <string name="op_problemas">Problemas</string>
     <string name="op_observaciones">Observaciones</string>
