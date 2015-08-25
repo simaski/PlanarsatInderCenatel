@@ -741,17 +741,86 @@
                 android:ems="10"
                 android:hint="Escriba Soluciones" />
 
+            <TextView
+                android:id="@+id/info_geo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_observaciones"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/mundo2"
+                android:gravity="center_vertical"
+                android:text="Información Geografica"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/Latitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_geo"
+                android:text="Latitud:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/latitudres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/Latitud"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/longitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/latitudres"
+                android:layout_below="@+id/latitudres"
+                android:text="Longitud:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/longitudres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/longitud"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/precision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/longitudres"
+                android:layout_below="@+id/longitudres"
+                android:text="Error:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/precisonres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/precision"
+                android:layout_below="@+id/precision"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
             <LinearLayout
                 android:id="@+id/linearLayout13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/et_observaciones">
+                android:layout_below="@id/precisonres">
+
 
             <Button
                 android:id="@+id/bt_enviar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_observaciones"
+                android:layout_below="@+id/precisonres"
                 android:layout_centerInParent="true"
                 android:text="@string/op_btEnviar"
                 android:layout_weight="2" />
