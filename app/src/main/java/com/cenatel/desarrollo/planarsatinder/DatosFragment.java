@@ -152,16 +152,20 @@ public class DatosFragment extends Fragment implements LocationListener {
                         break;
                     case 2:
                         //Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
-                        Vialidad fragment = new Vialidad();
-                        Bundle parametro = new Bundle();
-                        parametro.putString("Key", et_inspectorR);
-                        parametro.putString("Key2",et_fechaCapturaR);
-                        parametro.putString("Key3",spi_tipoObraCaptacionR);
-                        fragment.setArguments(parametro);
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        if (et_inspector.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Vialidad fragment = new Vialidad();
+                            Bundle parametro = new Bundle();
+                            parametro.putString("Key", et_inspectorR);
+                            parametro.putString("Key2", et_fechaCapturaR);
+                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            fragment.setArguments(parametro);
+                            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.frame, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
                         break;
                     case 3:
                         Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
@@ -184,7 +188,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                 switch (position) {
                     case 1:
                         if (et_inspector.getText().toString().equals("")) {
-                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
                             et_inspectorR = et_inspector.getText().toString();
                             et_fechaCapturaR = et_fechaCaptura.getText().toString();
@@ -204,7 +208,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                         break;
                     case 2:
                         if (et_inspector.getText().toString().equals("")) {
-                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
                             et_inspectorR = et_inspector.getText().toString();
                             et_fechaCapturaR = et_fechaCaptura.getText().toString();
@@ -223,7 +227,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                         break;
                     case 3:
                         if (et_inspector.getText().toString().equals("")) {
-                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
                             et_inspectorR = et_inspector.getText().toString();
                             et_fechaCapturaR = et_fechaCaptura.getText().toString();
@@ -242,7 +246,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                         break;
                     case 4:
                         if (et_inspector.getText().toString().equals("")) {
-                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
                             et_inspectorR = et_inspector.getText().toString();
                             et_fechaCapturaR = et_fechaCaptura.getText().toString();
