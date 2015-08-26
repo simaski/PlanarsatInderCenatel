@@ -345,10 +345,61 @@
                 android:longClickable="true" />
 
             <TextView
+                android:id="@+id/tv_diquelaguna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipolaguna"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_dique"
+                android:visibility="gone"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_diquelaguna">
+
+                <EditText
+                    android:id="@+id/et_longituddiquelaguna"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_espejodeagualaguna"
+                    android:ems="10"
+                    android:hint="Escriba Longitud"
+                    android:visibility="gone"
+                    android:layout_weight="3"/>
+
+                <EditText
+                    android:id="@+id/et_alturadiquelaguna"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_espejodeagualaguna"
+                    android:ems="10"
+                    android:hint="Escriba Altura"
+                    android:visibility="gone"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:id="@+id/tv_diquelaguna2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="(m)"
+                    android:textColor="@color/md_text"
+                    android:visibility="gone"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+
+            <TextView
                 android:id="@+id/tv_areaderiego"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout7"
+                android:layout_below="@+id/linearLayout14"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_areaderiego"
                 android:textColor="@color/md_green_500"

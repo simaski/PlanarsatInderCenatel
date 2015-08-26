@@ -42,6 +42,40 @@
         <item>Laguna</item>
     </string-array>
 
+    <string-array name="array_tipoObraConduccion">
+        <item>Canal</item>
+        <item>Tuberia</item>
+    </string-array>
+
+    <string-array name="array_dique">
+        <item>Tierra</item>
+        <item>Concreto</item>
+        <item>Piedra</item>
+    </string-array>
+
+    <string-array name="array_calidadagua">
+        <item>Buena</item>
+        <item>Regular</item>
+        <item>Mala</item>
+    </string-array>
+
+    <string-array name="array_abatimiento">
+        <item>Normal</item>
+        <item>Severo</item>
+        <item>Ligero</item>
+    </string-array>
+
+    <string-array name="array_tipobomba">
+        <item>Electrosumergible (consumo)</item>
+        <item>Electrosumergible Hidraulica (riego)</item>
+    </string-array>
+
+    <string-array name="array_tipolaguna">
+        <item>Excavada</item>
+        <item>Terraplen</item>
+        <item>Mixta</item>
+    </string-array>
+
     <string-array name="array_metodosriego">
         <item>Pivotes</item>
         <item>Goteo</item>

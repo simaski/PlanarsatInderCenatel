@@ -9,6 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -16,20 +20,144 @@ import android.widget.TextView;
  */
 public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
 
+    public Spinner spi_tipoObraCaptacion;
+    public String spi_tipoObraCaptacionR;
+
+    public Spinner spi_tipoObraDistribucion;
+    public String spi_tipoObraDistribucionR;
+
+    public Spinner spi_tipoObraConduccion;
+    public String spi_tipoObraConduccionR;
+
+    public Spinner spi_metodosriego;
+    public String spi_metodosriegoR;
+
+    public Spinner spi_tipolaguna;
+    public String spi_tipolagunaR;
+
     private LocationManager locationManager;
 
+    public TextView tv_diquelaguna;
+    public TextView tv_diquelaguna2;
     public TextView lblLatitud;
     public TextView lblLongitud;
     public TextView lblPrecision;
+
+    public EditText et_longituddiquelaguna;
+    public EditText et_alturadiquelaguna;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegolaguna, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Laguna");
         ((MainActivity) getActivity()).setVariable(1);
 
+
+        tv_diquelaguna = (TextView) v.findViewById(R.id.tv_diquelaguna);
+        tv_diquelaguna2 = (TextView) v.findViewById(R.id.tv_diquelaguna2);
+        et_longituddiquelaguna = (EditText) v.findViewById(R.id.et_longituddiquelaguna);
+        et_alturadiquelaguna = (EditText) v.findViewById(R.id.et_alturadiquelaguna);
         lblLatitud = (TextView) v.findViewById(R.id.latitudres);
         lblLongitud = (TextView) v.findViewById(R.id.longitudres);
         lblPrecision = (TextView) v.findViewById(R.id.precisonres);
+
+        spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraCaptacion, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_tipoObraCaptacion.setAdapter(adapter1);
+        spi_tipoObraCaptacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
+        ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_tipoObraConduccion.setAdapter(adapter3);
+        spi_tipoObraConduccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spi_tipoObraConduccionR = spi_tipoObraConduccion.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spi_tipoObraDistribucion = (Spinner) v.findViewById(R.id.spi_tipoObradistribucion);
+        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_tipoObraDistribucion.setAdapter(adapter2);
+        spi_tipoObraDistribucion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spi_tipoObraDistribucionR = spi_tipoObraDistribucion.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spi_metodosriego = (Spinner) v.findViewById(R.id.spi_metodosriego);
+        ArrayAdapter adapter5 = ArrayAdapter.createFromResource(getActivity(), R.array.array_metodosriego, android.R.layout.simple_spinner_item);
+        adapter5.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_metodosriego.setAdapter(adapter5);
+        spi_metodosriego.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spi_metodosriegoR = spi_metodosriego.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spi_tipolaguna = (Spinner) v.findViewById(R.id.spi_tipolaguna);
+        ArrayAdapter adapter6 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipolaguna, android.R.layout.simple_spinner_item);
+        adapter6.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spi_tipolaguna.setAdapter(adapter6);
+        spi_tipolaguna.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                switch (position) {
+                    case 0:
+                        tv_diquelaguna.setVisibility(View.GONE);
+                        tv_diquelaguna2.setVisibility(View.GONE);
+                        et_alturadiquelaguna.setVisibility(View.GONE);
+                        et_longituddiquelaguna.setVisibility(View.GONE);
+                        spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        break;
+                    case 1:
+                        tv_diquelaguna.setVisibility(View.VISIBLE);
+                        tv_diquelaguna2.setVisibility(View.VISIBLE);
+                        et_longituddiquelaguna.setVisibility(View.VISIBLE);
+                        et_alturadiquelaguna.setVisibility(View.GONE);
+                        spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        break;
+                    case 2:
+                        tv_diquelaguna.setVisibility(View.VISIBLE);
+                        tv_diquelaguna2.setVisibility(View.VISIBLE);
+                        et_alturadiquelaguna.setVisibility(View.VISIBLE);
+                        et_longituddiquelaguna.setVisibility(View.GONE);
+                        spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
