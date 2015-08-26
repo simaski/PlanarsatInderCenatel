@@ -76,6 +76,13 @@
         <item>Mixta</item>
     </string-array>
 
+    <string-array name="array_tipopavimento">
+        <item>Rigido</item>
+        <item>Flexible</item>
+        <item>Granzon</item>
+        <item>Tierra</item>
+    </string-array>
+
     <string-array name="array_metodosriego">
         <item>Pivotes</item>
         <item>Goteo</item>

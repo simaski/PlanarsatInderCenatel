@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/status_bar_height">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ToolbarTheme" />
+
+            </FrameLayout>
+
+
+
+            <TextView
+                android:id="@+id/info_puntos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/mundo2"
+                android:gravity="center_vertical"
+                android:text="Puntos"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/punto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_puntos"
+                android:gravity="center_vertical"
+                android:text="Punto de Origen"
+                android:textColor="@color/md_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lat_p1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/punto1"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/lon_p1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/lat_p1"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/punto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lon_p1"
+                android:gravity="center_vertical"
+                android:text="Punto de Destino"
+                android:textColor="@color/md_text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lat_p2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/punto2"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/lon_p2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/lat_p2"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <Button
+                android:id="@+id/bt_capturar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lon_p2"
+                android:layout_alignParentRight="true"
+                android:text="@string/op_btCapturar" />
+
+            <TextView
+                android:id="@+id/tv_tipopavimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_capturar"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_tipopavimento"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spi_tipopavimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tipopavimento"
+                android:longClickable="true" />
+
+            <TextView
+                android:id="@+id/info_geo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spi_tipopavimento"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/mundo2"
+                android:gravity="center_vertical"
+                android:text="Información Geografica"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/Latitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_geo"
+                android:text="Latitud:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/latitudres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/Latitud"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/longitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/latitudres"
+                android:layout_below="@+id/latitudres"
+                android:text="Longitud:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/longitudres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/longitud"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <TextView
+                android:id="@+id/precision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/longitudres"
+                android:layout_below="@+id/longitudres"
+                android:text="Error:"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/precisonres"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/precision"
+                android:layout_below="@+id/precision"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/md_text" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/precisonres">
+
+                <Button
+                    android:id="@+id/bt_enviar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_observaciones"
+                    android:layout_centerInParent="true"
+                    android:text="@string/op_btEnviar"
+                    android:layout_weight="2" />
+
+                <Button
+                    android:id="@+id/bt_ver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bt_enviar"
+                    android:layout_centerInParent="true"
+                    android:text="Ver"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

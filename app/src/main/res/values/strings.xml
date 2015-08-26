@@ -47,6 +47,7 @@
     <!-- fragment sistema de riego: embalse-->
     <string name="op_derivacion"><u>DERIVACI\u00d3N</u></string>
     <string name="op_desarenador">Desarenador</string>
+    <string name="op_tipopavimento">Tipo de Pavimento</string>
 
     <string name="op_pozo"><u>POZO</u></string>
 

@@ -151,13 +151,20 @@ public class DatosFragment extends Fragment implements LocationListener {
                         spi_tipoObraCaptacion.setVisibility(View.VISIBLE);
                         break;
                     case 2:
-                        Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
+                        Vialidad fragment = new Vialidad();
+                        Bundle parametro = new Bundle();
+                        parametro.putString("Key", et_inspectorR);
+                        parametro.putString("Key2",et_fechaCapturaR);
+                        parametro.putString("Key3",spi_tipoObraCaptacionR);
+                        fragment.setArguments(parametro);
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.frame, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         break;
                     case 3:
-                                /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction3.replace(R.id.frame, fragment3);
-                                fragmentTransaction3.commit();*/
+                        Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
