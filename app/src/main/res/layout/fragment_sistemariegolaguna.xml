@@ -69,19 +69,20 @@
                 android:textColor="@color/md_text"
                 android:textSize="21sp" />
 
-            <Spinner
-                android:id="@+id/spi_tipoObracaptacion"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_tipoObracaptacion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/tv_tipoObraCaptacion"
-                android:longClickable="true" />
+                android:ems="10"
+                android:editable="false"/>
 
             <TextView
                 android:id="@+id/tv_capacidadObraCaptacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_tipoObracaptacion"
+                android:layout_below="@+id/et_tipoObracaptacion"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_capacidad"
                 android:textColor="@color/md_text"

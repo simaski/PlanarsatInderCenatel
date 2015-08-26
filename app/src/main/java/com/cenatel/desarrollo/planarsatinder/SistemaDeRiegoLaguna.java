@@ -21,7 +21,6 @@ import android.widget.TextView;
 public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
 
     public Spinner spi_tipoObraCaptacion;
-    public String spi_tipoObraCaptacionR;
 
     public Spinner spi_tipoObraDistribucion;
     public String spi_tipoObraDistribucionR;
@@ -34,6 +33,12 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
 
     public Spinner spi_tipolaguna;
     public String spi_tipolagunaR;
+
+    public String et_inspectorR;
+    public String et_fechaCapturaR;
+    public String spi_tipoObraCaptacionR;
+
+    public EditText et_tipoObraCaptacion;
 
     private LocationManager locationManager;
 
@@ -51,6 +56,13 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Laguna");
         ((MainActivity) getActivity()).setVariable(1);
 
+        et_inspectorR = getArguments().getString("Key");
+        et_fechaCapturaR = getArguments().getString("Key2");
+        spi_tipoObraCaptacionR = getArguments().getString("Key3");
+
+        et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
+        et_tipoObraCaptacion.setText(spi_tipoObraCaptacionR);
+
 
         tv_diquelaguna = (TextView) v.findViewById(R.id.tv_diquelaguna);
         tv_diquelaguna2 = (TextView) v.findViewById(R.id.tv_diquelaguna2);
@@ -60,20 +72,6 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
         lblLongitud = (TextView) v.findViewById(R.id.longitudres);
         lblPrecision = (TextView) v.findViewById(R.id.precisonres);
 
-        spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
-        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraCaptacion, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spi_tipoObraCaptacion.setAdapter(adapter1);
-        spi_tipoObraCaptacion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);

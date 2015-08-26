@@ -67,7 +67,7 @@
                 android:layout_below="@+id/tv_fechaCaptura"
                 android:editable="false" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tv_estado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,13 +137,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/tv_sector"
-                android:longClickable="true" />
+                android:longClickable="true" />-->
 
             <TextView
                 android:id="@+id/tv_tipoObra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spi_sector"
+                android:layout_below="@+id/et_fechaCaptura"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_tipoObra"
                 android:textColor="@color/md_text"
@@ -188,12 +188,12 @@
                 android:longClickable="true"
                 android:visibility="gone" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tvResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spi_tipoObracaptacion"
-                android:text="Aqui va el texto" />
+                android:text="Aqui va el texto" />-->
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

@@ -43,6 +43,9 @@ public class DatosFragment extends Fragment implements LocationListener {
     public String spi_ParroquiasR;
     public String spi_SectorR;
     public String spi_TipoObraR;
+    public String et_inspectorR;
+    public String et_fechaCapturaR;
+    public String spi_tipoObraCaptacionR;
 
     private int mYear;
     private int mMonth;
@@ -59,7 +62,7 @@ public class DatosFragment extends Fragment implements LocationListener {
         tv_tipoObraCaptacion = (TextView) v.findViewById(R.id.tv_tipoObraCaptacion);
         spi_tipoObraCaptacion = (Spinner) v.findViewById(R.id.spi_tipoObracaptacion);
 
-       //**************Ocultar el teclado por defecto hasta el touch en el edittext***********************//
+        //**************Ocultar el teclado por defecto hasta el touch en el edittext***********************//
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //***********************************************************************************************//
 
@@ -73,7 +76,7 @@ public class DatosFragment extends Fragment implements LocationListener {
         et_fechaCaptura = (EditText) v.findViewById(R.id.et_fechaCaptura);
         et_fechaCaptura.setText(sdf.format(c.getTime()));
 
-        spi_Estados = (Spinner) v.findViewById(R.id.spi_estado);
+       /* spi_Estados = (Spinner) v.findViewById(R.id.spi_estado);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spi_Estados.setAdapter(adapter1);
@@ -128,7 +131,7 @@ public class DatosFragment extends Fragment implements LocationListener {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
         spi_TipoObra = (Spinner) v.findViewById(R.id.spi_tipoObra);
         ArrayAdapter adapter5 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObra, android.R.layout.simple_spinner_item);
@@ -156,8 +159,9 @@ public class DatosFragment extends Fragment implements LocationListener {
                                 fragmentTransaction3.replace(R.id.frame, fragment3);
                                 fragmentTransaction3.commit();*/
                         break;
-                    }
+                }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -172,33 +176,81 @@ public class DatosFragment extends Fragment implements LocationListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 1:
-                        SistemaDeRiegoEmbalse fragment = new SistemaDeRiegoEmbalse();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.frame, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                        position = 0;
+                        if (et_inspector.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                        } else {
+                            et_inspectorR = et_inspector.getText().toString();
+                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            SistemaDeRiegoEmbalse fragment = new SistemaDeRiegoEmbalse();
+                            Bundle parametro = new Bundle();
+                            parametro.putString("Key", et_inspectorR);
+                            parametro.putString("Key2",et_fechaCapturaR);
+                            parametro.putString("Key3",spi_tipoObraCaptacionR);
+                            fragment.setArguments(parametro);
+                            android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.frame, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                            position = 0;
+                        }
                         break;
                     case 2:
+                        if (et_inspector.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                        } else {
+                            et_inspectorR = et_inspector.getText().toString();
+                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
                         SistemaDeRiegoDerivacion fragment1 = new SistemaDeRiegoDerivacion();
+                            Bundle parametro = new Bundle();
+                            parametro.putString("Key", et_inspectorR);
+                            parametro.putString("Key2",et_fechaCapturaR);
+                            parametro.putString("Key3",spi_tipoObraCaptacionR);
+                            fragment1.setArguments(parametro);
                         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
                         fragmentTransaction1.replace(R.id.frame, fragment1);
                         fragmentTransaction1.addToBackStack(null);
                         fragmentTransaction1.commit();
+                        }
                         break;
                     case 3:
-                        SistemaDeRiegoPozo fragment2 = new SistemaDeRiegoPozo();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction();
-                        fragmentTransaction2.replace(R.id.frame, fragment2);
-                        fragmentTransaction2.addToBackStack(null);
-                        fragmentTransaction2.commit();
+                        if (et_inspector.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                        } else {
+                            et_inspectorR = et_inspector.getText().toString();
+                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            SistemaDeRiegoPozo fragment2 = new SistemaDeRiegoPozo();
+                            Bundle parametro = new Bundle();
+                            parametro.putString("Key", et_inspectorR);
+                            parametro.putString("Key2", et_fechaCapturaR);
+                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            fragment2.setArguments(parametro);
+                            android.support.v4.app.FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction();
+                            fragmentTransaction2.replace(R.id.frame, fragment2);
+                            fragmentTransaction2.addToBackStack(null);
+                            fragmentTransaction2.commit();
+                        }
                         break;
                     case 4:
-                        SistemaDeRiegoLaguna fragment3 = new SistemaDeRiegoLaguna();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction3 = getFragmentManager().beginTransaction();
-                        fragmentTransaction3.replace(R.id.frame, fragment3);
-                        fragmentTransaction3.addToBackStack(null);
-                        fragmentTransaction3.commit();
+                        if (et_inspector.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Nombre vacio", Toast.LENGTH_SHORT).show();
+                        } else {
+                            et_inspectorR = et_inspector.getText().toString();
+                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            SistemaDeRiegoLaguna fragment3 = new SistemaDeRiegoLaguna();
+                            Bundle parametro = new Bundle();
+                            parametro.putString("Key", et_inspectorR);
+                            parametro.putString("Key2", et_fechaCapturaR);
+                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            fragment3.setArguments(parametro);
+                            android.support.v4.app.FragmentTransaction fragmentTransaction3 = getFragmentManager().beginTransaction();
+                            fragmentTransaction3.replace(R.id.frame, fragment3);
+                            fragmentTransaction3.addToBackStack(null);
+                            fragmentTransaction3.commit();
+                        }
                         break;
                 }
                 spi_tipoObraCaptacion.setSelection(0);
