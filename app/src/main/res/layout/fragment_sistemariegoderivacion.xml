@@ -79,47 +79,10 @@
                 android:editable="false"/>
 
             <TextView
-                android:id="@+id/tv_capacidadObraCaptacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_tipoObracaptacion"
-                android:layout_marginTop="10dp"
-                android:text="@string/op_capacidad"
-                android:textColor="@color/md_text"
-                android:textSize="21sp" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_capacidadObraCaptacion">
-
-                <EditText
-                    android:id="@+id/et_capacidadObraCaptacion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/tv_capacidadObraCaptacion"
-                    android:ems="10"
-                    android:hint="Escriba Capacidad"
-                    android:layout_weight="3"/>
-
-                <TextView
-                    android:id="@+id/tv_capacidadObraCaptacion2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="m\u00b3/s"
-                    android:textColor="@color/md_text"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
-
-            <TextView
                 android:id="@+id/tv_oconduccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout1"
+                android:layout_below="@+id/et_tipoObracaptacion"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_oconduccion"
                 android:textColor="@color/md_green_500"
