@@ -34,85 +34,93 @@
 
 
             <TextView
-                android:id="@+id/info_puntos"
+                android:id="@+id/tv_puntoOrigen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dip"
-                android:drawableRight="@drawable/mundo2"
-                android:gravity="center_vertical"
-                android:text="Puntos"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="21sp" />
-
-            <TextView
-                android:id="@+id/punto1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/info_puntos"
                 android:gravity="center_vertical"
                 android:text="Punto de Origen"
+                android:layout_below="@+id/frame"
                 android:textColor="@color/md_text"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/lat_p1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/punto1"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/md_text" />
-
-            <TextView
-                android:id="@+id/lon_p1"
-                android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/et_puntoOrigen"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lat_p1"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/md_text" />
+                android:layout_below="@+id/tv_puntoOrigen"
+                android:ems="10"
+                android:hint="Escriba Punto de Origen" />
 
             <TextView
-                android:id="@+id/punto2"
+                android:id="@+id/tv_puntoDestino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lon_p1"
+                android:layout_below="@+id/et_puntoOrigen"
                 android:gravity="center_vertical"
                 android:text="Punto de Destino"
                 android:textColor="@color/md_text"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/lat_p2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/punto2"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/md_text" />
-
-            <TextView
-                android:id="@+id/lon_p2"
-                android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/et_puntoDestino"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lat_p2"
-                android:background="?attr/colorPrimary"
-                android:textColor="@color/md_text" />
+                android:layout_below="@+id/tv_puntoDestino"
+                android:ems="10"
+                android:hint="Escriba Punto de Destino" />
 
-            <Button
-                android:id="@+id/bt_capturar"
+            <TextView
+                android:id="@+id/tv_fotografia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lon_p2"
-                android:layout_alignParentRight="true"
-                android:text="@string/op_btCapturar" />
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/et_puntoDestino"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/camara"
+                android:gravity="center_vertical"
+                android:text="Fotografias Vialidad"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/bt_panoramica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_fotografia"
+                android:text="Panoramica" />
+
+            <ImageView
+                android:id="@+id/imv_panoramica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_panoramica"
+                android:layout_below="@+id/bt_panoramica"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/bt_detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_panoramica"
+                android:layout_alignRight="@+id/bt_panoramica"
+                android:layout_below="@+id/imv_panoramica"
+                android:text="Detalle" />
+
+            <ImageView
+                android:id="@+id/imv_detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/imv_panoramica"
+                android:layout_below="@+id/bt_detalle"
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/tv_tipopavimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bt_capturar"
+                android:layout_below="@+id/imv_detalle"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_tipopavimento"
                 android:textColor="@color/md_text"

@@ -1,11 +1,15 @@
 package com.cenatel.desarrollo.planarsatinder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by San Casimiro on 26/08/2015.
  */
@@ -28,33 +37,31 @@ public class Vialidad extends Fragment implements LocationListener {
     public Spinner spi_tipopavimento;
 
     //****************EditText**************************//
-    public EditText et_tipoObraCaptacion;
+    public EditText et_puntoOrigen;
+    public EditText et_puntoDestino;
 
     //****************TextView**************************//
     public TextView tv_Latitud;
     public TextView tv_Longitud;
     public TextView tv_Precision;
-    public TextView latp1;
-    public TextView latp2;
-    public TextView lonp1;
-    public TextView lonp2;
 
     //****************Button**************************//
-    public Button btCapturar;
+    public Button btCapturarPanoramica;
+    public Button btCapturarDetalle;
 
     //****************ImageView**************************//
-    public ImageView imv_captacion;
-    public ImageView imv_conduccion;
-    public ImageView imv_distribucion;
-    public ImageView imv_areaderiego;
+    public ImageView imv_panoramica;
+    public ImageView imv_detalle;
 
     //****************String**************************//
+    public String st_spi_tipopavimentoR;
+    private String st_mCurrentPhotoPath; // String para guardar el camino hacia la foto
+    private String st_imageFileName;
+    private String st_timeStamp;
+    private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
+    private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
-    public String st_spi_tipoObraCaptacionR;
-    public String st_spi_tipopavimentoR;
-    public String latglobal;
-    public String longlobal;
 
     //****************Integer**************************//
     public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
@@ -72,47 +79,15 @@ public class Vialidad extends Fragment implements LocationListener {
         View v = inflater.inflate(R.layout.fragment_vialidad, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Vialidad");
         ((MainActivity) getActivity()).setVariable(1);
+        st_et_inspectorR = getArguments().getString("Key");
+        st_et_fechaCapturaR = getArguments().getString("Key2");
         in_acum = 1;
 
         st_et_inspectorR = getArguments().getString("Key");
         st_et_fechaCapturaR = getArguments().getString("Key2");
-        //st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
 
-        /*et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);*/
-
-        tv_Latitud = (TextView) v.findViewById(R.id.latitudres);
-        tv_Longitud = (TextView) v.findViewById(R.id.longitudres);
-        tv_Precision = (TextView) v.findViewById(R.id.precisonres);
-
-        latp1 = (TextView) v.findViewById(R.id.lat_p1);
-        latp2 = (TextView) v.findViewById(R.id.lat_p2);
-        lonp1 = (TextView) v.findViewById(R.id.lon_p1);
-        lonp2 = (TextView) v.findViewById(R.id.lon_p2);
-
-        btCapturar = (Button) v.findViewById(R.id.bt_capturar);
-        btCapturar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tv_Latitud.getText().toString().equals("No disponible")) {
-                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
-                } else if(in_acum == 1){
-                    latglobal = tv_Latitud.getText().toString();
-                    longlobal = tv_Longitud.getText().toString();
-                    latp1.setText(latglobal);
-                    lonp1.setText(longlobal);
-                    in_acum = 2;
-                    //DialogoPersonalizado();
-                }else if (in_acum == 2){
-                    latglobal = tv_Latitud.getText().toString();
-                    longlobal = tv_Longitud.getText().toString();
-                    latp2.setText(String.valueOf(latglobal));
-                    lonp2.setText(String.valueOf(longlobal));
-                    //DialogoPersonalizado();
-                    btCapturar.setVisibility(View.GONE);
-                }
-            }
-        });
+        et_puntoOrigen = (EditText) v.findViewById(R.id.et_puntoOrigen);
+        et_puntoDestino = (EditText) v.findViewById(R.id.et_puntoDestino);
 
         spi_tipopavimento = (Spinner) v.findViewById(R.id.spi_tipopavimento);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipopavimento, android.R.layout.simple_spinner_item);
@@ -129,6 +104,13 @@ public class Vialidad extends Fragment implements LocationListener {
             }
         });
 
+        tv_Latitud = (TextView) v.findViewById(R.id.latitudres);
+        tv_Longitud = (TextView) v.findViewById(R.id.longitudres);
+        tv_Precision = (TextView) v.findViewById(R.id.precisonres);
+
+        imv_panoramica = (ImageView) v.findViewById(R.id.imv_panoramica);
+        imv_detalle = (ImageView) v.findViewById(R.id.imv_detalle);
+
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -143,9 +125,119 @@ public class Vialidad extends Fragment implements LocationListener {
             tv_Precision.setText("No disponible");
         }
 
+        btCapturarPanoramica = (Button) v.findViewById(R.id.bt_panoramica);
+        btCapturarDetalle = (Button) v.findViewById(R.id.bt_detalle);
+
+        //--------------------CARPETA IMAGENES--------------------------------------------------------------
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Vialidad/");
+        if (!f.exists()) {
+            f.mkdir();
+        }
+        //--------------------------------------------------------------------------------------------------
+
+        in_dw = 200;
+        in_dh = 200;
+        st_timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        st_imageFileName = st_JPEG_FILE_PREFIX + st_timeStamp;
+        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Vialidad/" + st_imageFileName;
+        imageFileUri = Uri.fromFile(new File(st_mCurrentPhotoPath));
+
+        btCapturarPanoramica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    in_acum = 1;
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });
+
+        btCapturarDetalle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    in_acum = 2;
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });
+
 
         return v;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+       /* Se revisa si la imagen viene de la camara (TAKE_PICTURE) o de la galeria (SELECT_PICTURE)*/
+        try {
+            if (requestCode == TAKE_PICTURE) {
+
+                BitmapFactory.Options bmOptions1 = new BitmapFactory.Options();
+                bmOptions1.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
+                int photoW = bmOptions1.outWidth;
+                int photoH = bmOptions1.outHeight;
+                // Determinar cuanto escalamos la imagen
+                int scaleFactor1 = Math.min(photoW / in_dw, photoH / in_dh);
+                // Decodificar la imagen en un Bitmap escalado a View
+                bmOptions1.inJustDecodeBounds = false;
+                bmOptions1.inSampleSize = scaleFactor1;
+                bmOptions1.inPurgeable = true;
+                Bitmap bitmap1 = BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
+                if(in_acum == 1) {
+                    imv_panoramica.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 1!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+                if(in_acum == 2) {
+                    imv_detalle.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 2!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//---------------------------FIN Funciones IMAGEN-------------------------------------------------------------------
 
     @Override
     public void onLocationChanged(Location location) {

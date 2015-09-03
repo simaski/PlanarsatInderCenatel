@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -67,6 +69,13 @@ public class DatosFragment extends Fragment implements LocationListener {
         //**************Ocultar el teclado por defecto hasta el touch en el edittext***********************//
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //***********************************************************************************************//
+
+        //--------------------CARPETA IMAGENES--------------------------------------------------------------
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/");
+        if (!f.exists()) {
+            f.mkdir();
+        }
+        //--------------------------------------------------------------------------------------------------
 
         c = Calendar.getInstance();
         in_mYear = c.get(Calendar.YEAR);
