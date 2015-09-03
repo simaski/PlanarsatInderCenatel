@@ -79,10 +79,40 @@
                 android:editable="false"/>
 
             <TextView
+                android:id="@+id/tv_fotografiaCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/et_tipoObracaptacion"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/camara"
+                android:gravity="center_vertical"
+                android:text="Fotografia obra captacion"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/bt_fotoCaptacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_fotografiaCaptacion"
+                android:layout_below="@+id/tv_fotografiaCaptacion"
+                android:text="Capturar" />
+
+            <ImageView
+                android:id="@+id/imv_captacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_fotoCaptacion"
+                android:layout_below="@+id/bt_fotoCaptacion"
+                android:layout_gravity="center" />
+
+
+            <TextView
                 android:id="@+id/tv_oconduccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_tipoObracaptacion"
+                android:layout_below="@+id/imv_captacion"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_oconduccion"
                 android:textColor="@color/md_green_500"
@@ -144,10 +174,39 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_fotografiaConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/camara"
+                android:gravity="center_vertical"
+                android:text="Fotografia obra conduccion"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/bt_fotoConduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_fotografiaConduccion"
+                android:layout_below="@+id/tv_fotografiaConduccion"
+                android:text="Capturar" />
+
+            <ImageView
+                android:id="@+id/imv_conduccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_fotoConduccion"
+                android:layout_below="@+id/bt_fotoConduccion"
+                android:layout_gravity="center" />
+
+            <TextView
                 android:id="@+id/tv_odistribucion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout2"
+                android:layout_below="@+id/imv_conduccion"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_odistribucion"
                 android:textColor="@color/md_green_500"
@@ -208,10 +267,39 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_fotografiaDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayout3"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/camara"
+                android:gravity="center_vertical"
+                android:text="Fotografia obra distribucion"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/bt_fotoDistribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_fotografiaDistribucion"
+                android:layout_below="@+id/tv_fotografiaDistribucion"
+                android:text="Capturar" />
+
+            <ImageView
+                android:id="@+id/imv_distribucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_fotoDistribucion"
+                android:layout_below="@+id/bt_fotoDistribucion"
+                android:layout_gravity="center" />
+
+            <TextView
                 android:id="@+id/tv_derivacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout3"
+                android:layout_below="@+id/imv_distribucion"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_derivacion"
                 android:textColor="@color/md_green_500"
@@ -512,10 +600,39 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_fotografiaAreariego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linearLayout12"
+                android:layout_margin="8dip"
+                android:drawableRight="@drawable/camara"
+                android:gravity="center_vertical"
+                android:text="Fotografia obra area de riego"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/bt_fotoAreaRiego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_fotografiaAreariego"
+                android:layout_below="@+id/tv_fotografiaAreariego"
+                android:text="Capturar" />
+
+            <ImageView
+                android:id="@+id/imv_areariego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bt_fotoAreaRiego"
+                android:layout_below="@+id/bt_fotoAreaRiego"
+                android:layout_gravity="center" />
+
+            <TextView
                 android:id="@+id/tv_problemas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout12"
+                android:layout_below="@+id/imv_areariego"
                 android:layout_marginTop="10dp"
                 android:text="@string/op_problemas"
                 android:textColor="@color/md_text"

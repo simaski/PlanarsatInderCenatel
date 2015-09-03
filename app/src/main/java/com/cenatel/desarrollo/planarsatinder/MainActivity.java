@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locationManager;
 
 
-    public TextView lblLatitud;
-    public TextView lblLongitud;
-    public TextView lblPrecision;
+    public TextView tvLatitud;
+    public TextView tvLongitud;
+    public TextView tvPrecision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         hand.removeCallbacks(actualizar);
         hand.postDelayed(actualizar,100);
 
-        lblLatitud = (TextView) findViewById(R.id.latitudres);
-        lblLongitud = (TextView) findViewById(R.id.longitudres);
-        lblPrecision = (TextView)   findViewById(R.id.precisonres);
+        tvLatitud = (TextView) findViewById(R.id.latitudres);
+        tvLongitud = (TextView) findViewById(R.id.longitudres);
+        tvPrecision = (TextView)   findViewById(R.id.precisonres);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (location != null) {
             onLocationChanged(location);
         } else {
-            /*lblLatitud.setText("No disponible");
-            lblLongitud.setText("No disponible");
-            lblPrecision.setText("No disponible");*/
+            /*tvLatitud.setText("No disponible");
+            tvLongitud.setText("No disponible");
+            tvPrecision.setText("No disponible");*/
         }
 
     }
@@ -217,9 +217,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        /*lblLatitud.setText(String.valueOf(location.getLatitude()));
-        lblLongitud.setText(String.valueOf(location.getLongitude()));
-        lblPrecision.setText(String.valueOf(location.getAccuracy()));*/
+        /*tvLatitud.setText(String.valueOf(location.getLatitude()));
+        tvLongitud.setText(String.valueOf(location.getLongitude()));
+        tvPrecision.setText(String.valueOf(location.getAccuracy()));*/
     }
 
     @Override

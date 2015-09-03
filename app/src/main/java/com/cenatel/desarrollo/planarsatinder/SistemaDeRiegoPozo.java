@@ -1,75 +1,102 @@
 package com.cenatel.desarrollo.planarsatinder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by simaski on 02/08/2015.
  */
 public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
 
-    public Spinner spi_tipoObraCaptacion;
-
+    //****************Spinner**************************//
     public Spinner spi_tipoObraDistribucion;
-
-    public String spi_tipoObraDistribucionR;
-
     public Spinner spi_tipoObraConduccion;
-
-    public String spi_tipoObraConduccionR;
-
     public Spinner spi_metodosriego;
-
-    public String spi_metodosriegoR;
-
     public Spinner spi_calidadagua;
-
-    public String spi_calidadaguaR;
-
     public Spinner spi_abatimiento;
-
-    public String spi_abatimientoR;
-
     public Spinner spi_tipobomba;
 
-    public String spi_tipobombaR;
-
-    public String et_inspectorR;
-    public String et_fechaCapturaR;
-    public String spi_tipoObraCaptacionR;
-
+    //****************EditText**************************//
     public EditText et_tipoObraCaptacion;
 
+    //****************TextView**************************//
+    public TextView tvLatitud;
+    public TextView tvLongitud;
+    public TextView tvPrecision;
 
+    //****************Button**************************//
+    public Button btCapturarCaptacion;
+    public Button btCapturarConduccion;
+    public Button btCapturarDistribucion;
+    public Button btCapturarAreaRiego;
+
+    //****************ImageView**************************//
+    public ImageView imv_captacion;
+    public ImageView imv_conduccion;
+    public ImageView imv_distribucion;
+    public ImageView imv_areaderiego;
+
+    //****************String**************************//
+    public String st_spi_tipoObraDistribucionR;
+    public String st_spi_tipoObraConduccionR;
+    public String st_spi_metodosriegoR;
+    public String st_spi_calidadaguaR;
+    public String st_spi_tipobombaR;
+    public String st_et_inspectorR;
+    public String st_et_fechaCapturaR;
+    public String st_spi_tipoObraCaptacionR;
+    public String st_spi_abatimientoR;
+    private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
+    private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
+    private String st_imageFileName;
+    private String st_timeStamp;
+    private String st_mCurrentPhotoPath; // String para guardar el camino hacia la foto
+
+    //****************Integer**************************//
+    public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
+    int in_dw; // ancho pantalla
+    int in_dh; // alto pantalla
+    int in_acum = 0;
+
+    //****************LocationManager**************************//
     private LocationManager locationManager;
 
-    public TextView lblLatitud;
-    public TextView lblLongitud;
-    public TextView lblPrecision;
+    //****************Uri**************************//
+    private Uri imageFileUri; // Ver proveedores de contenidos
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegopozo, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Pozo");
         ((MainActivity) getActivity()).setVariable(1);
 
-        et_inspectorR = getArguments().getString("Key");
-        et_fechaCapturaR = getArguments().getString("Key2");
-        spi_tipoObraCaptacionR = getArguments().getString("Key3");
+        st_et_inspectorR = getArguments().getString("Key");
+        st_et_fechaCapturaR = getArguments().getString("Key2");
+        st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
 
         et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(spi_tipoObraCaptacionR);
+        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);
 
         spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);
@@ -78,7 +105,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_tipoObraConduccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_tipoObraConduccionR = spi_tipoObraConduccion.getSelectedItem().toString();
+                st_spi_tipoObraConduccionR = spi_tipoObraConduccion.getSelectedItem().toString();
             }
 
             @Override
@@ -93,7 +120,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_tipoObraDistribucion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_tipoObraDistribucionR = spi_tipoObraDistribucion.getSelectedItem().toString();
+                st_spi_tipoObraDistribucionR = spi_tipoObraDistribucion.getSelectedItem().toString();
             }
 
             @Override
@@ -108,7 +135,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_calidadagua.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_calidadaguaR = spi_calidadagua.getSelectedItem().toString();
+                st_spi_calidadaguaR = spi_calidadagua.getSelectedItem().toString();
             }
 
             @Override
@@ -123,7 +150,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_metodosriego.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_metodosriegoR = spi_metodosriego.getSelectedItem().toString();
+                st_spi_metodosriegoR = spi_metodosriego.getSelectedItem().toString();
             }
 
             @Override
@@ -138,7 +165,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_abatimiento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_abatimientoR = spi_abatimiento.getSelectedItem().toString();
+                st_spi_abatimientoR = spi_abatimiento.getSelectedItem().toString();
             }
 
             @Override
@@ -153,7 +180,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_tipobomba.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_tipobombaR = spi_tipobomba.getSelectedItem().toString();
+                st_spi_tipobombaR = spi_tipobomba.getSelectedItem().toString();
             }
 
             @Override
@@ -161,9 +188,9 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
             }
         });
 
-        lblLatitud = (TextView) v.findViewById(R.id.latitudres);
-        lblLongitud = (TextView) v.findViewById(R.id.longitudres);
-        lblPrecision = (TextView) v.findViewById(R.id.precisonres);
+        tvLatitud = (TextView) v.findViewById(R.id.latitudres);
+        tvLongitud = (TextView) v.findViewById(R.id.longitudres);
+        tvPrecision = (TextView) v.findViewById(R.id.precisonres);
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -174,10 +201,40 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-            lblLatitud.setText("No disponible");
-            lblLongitud.setText("No disponible");
-            lblPrecision.setText("No disponible");
+            tvLatitud.setText("No disponible");
+            tvLongitud.setText("No disponible");
+            tvPrecision.setText("No disponible");
         }
+
+        btCapturarCaptacion = (Button) v.findViewById(R.id.bt_fotoCaptacion);
+
+        //--------------------CARPETA IMAGENES--------------------------------------------------------------
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/");
+        if (!f.exists()) {
+            f.mkdir();
+        }
+        //--------------------------------------------------------------------------------------------------
+
+        in_dw = 200;
+        in_dh = 200;
+        st_timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        st_imageFileName = st_JPEG_FILE_PREFIX + st_timeStamp;
+        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/" + st_imageFileName;
+        imageFileUri = Uri.fromFile(new File(st_mCurrentPhotoPath));
+
+        btCapturarCaptacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvLatitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });
 
 
         return v;
@@ -188,9 +245,9 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        lblLatitud.setText(String.valueOf(location.getLatitude()));
-        lblLongitud.setText(String.valueOf(location.getLongitude()));
-        lblPrecision.setText(String.valueOf(location.getAccuracy()));
+        tvLatitud.setText(String.valueOf(location.getLatitude()));
+        tvLongitud.setText(String.valueOf(location.getLongitude()));
+        tvPrecision.setText(String.valueOf(location.getAccuracy()));
     }
 
     @Override

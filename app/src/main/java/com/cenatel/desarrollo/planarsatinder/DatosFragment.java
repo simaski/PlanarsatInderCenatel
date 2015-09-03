@@ -43,9 +43,9 @@ public class DatosFragment extends Fragment implements LocationListener {
     public String spi_ParroquiasR;
     public String spi_SectorR;
     public String spi_TipoObraR;
-    public String et_inspectorR;
-    public String et_fechaCapturaR;
-    public String spi_tipoObraCaptacionR;
+    public String st_et_inspectorR;
+    public String st_et_fechaCapturaR;
+    public String st_spi_tipoObraCaptacionR;
 
     private int mYear;
     private int mMonth;
@@ -76,62 +76,6 @@ public class DatosFragment extends Fragment implements LocationListener {
         et_fechaCaptura = (EditText) v.findViewById(R.id.et_fechaCaptura);
         et_fechaCaptura.setText(sdf.format(c.getTime()));
 
-       /* spi_Estados = (Spinner) v.findViewById(R.id.spi_estado);
-        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spi_Estados.setAdapter(adapter1);
-        spi_Estados.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_EstadosR = spi_Estados.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        spi_Municipios = (Spinner) v.findViewById(R.id.spi_municipio);
-        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spi_Municipios.setAdapter(adapter2);
-        spi_Municipios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_MunicipiosR = spi_Municipios.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        spi_Parroquias = (Spinner) v.findViewById(R.id.spi_parroquia);
-        ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spi_Parroquias.setAdapter(adapter3);
-        spi_Parroquias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_ParroquiasR = spi_Parroquias.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        spi_Sector = (Spinner) v.findViewById(R.id.spi_sector);
-        ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getActivity(), R.array.arr_estados, android.R.layout.simple_spinner_item);
-        adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spi_Sector.setAdapter(adapter4);
-        spi_Sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_SectorR = spi_Sector.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
 
         spi_TipoObra = (Spinner) v.findViewById(R.id.spi_tipoObra);
         ArrayAdapter adapter5 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObra, android.R.layout.simple_spinner_item);
@@ -157,9 +101,9 @@ public class DatosFragment extends Fragment implements LocationListener {
                         } else {
                             Vialidad fragment = new Vialidad();
                             Bundle parametro = new Bundle();
-                            parametro.putString("Key", et_inspectorR);
-                            parametro.putString("Key2", et_fechaCapturaR);
-                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            parametro.putString("Key", st_et_inspectorR);
+                            parametro.putString("Key2", st_et_fechaCapturaR);
+                            parametro.putString("Key3", st_spi_tipoObraCaptacionR);
                             fragment.setArguments(parametro);
                             android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.frame, fragment);
@@ -190,14 +134,14 @@ public class DatosFragment extends Fragment implements LocationListener {
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
-                            et_inspectorR = et_inspector.getText().toString();
-                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
-                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            st_et_inspectorR = et_inspector.getText().toString();
+                            st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            st_spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
                             SistemaDeRiegoEmbalse fragment = new SistemaDeRiegoEmbalse();
                             Bundle parametro = new Bundle();
-                            parametro.putString("Key", et_inspectorR);
-                            parametro.putString("Key2",et_fechaCapturaR);
-                            parametro.putString("Key3",spi_tipoObraCaptacionR);
+                            parametro.putString("Key", st_et_inspectorR);
+                            parametro.putString("Key2",st_et_fechaCapturaR);
+                            parametro.putString("Key3",st_spi_tipoObraCaptacionR);
                             fragment.setArguments(parametro);
                             android.support.v4.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.frame, fragment);
@@ -210,14 +154,14 @@ public class DatosFragment extends Fragment implements LocationListener {
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
-                            et_inspectorR = et_inspector.getText().toString();
-                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
-                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            st_et_inspectorR = et_inspector.getText().toString();
+                            st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            st_spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
                         SistemaDeRiegoDerivacion fragment1 = new SistemaDeRiegoDerivacion();
                             Bundle parametro = new Bundle();
-                            parametro.putString("Key", et_inspectorR);
-                            parametro.putString("Key2",et_fechaCapturaR);
-                            parametro.putString("Key3",spi_tipoObraCaptacionR);
+                            parametro.putString("Key", st_et_inspectorR);
+                            parametro.putString("Key2",st_et_fechaCapturaR);
+                            parametro.putString("Key3",st_spi_tipoObraCaptacionR);
                             fragment1.setArguments(parametro);
                         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
                         fragmentTransaction1.replace(R.id.frame, fragment1);
@@ -229,14 +173,14 @@ public class DatosFragment extends Fragment implements LocationListener {
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
-                            et_inspectorR = et_inspector.getText().toString();
-                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
-                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            st_et_inspectorR = et_inspector.getText().toString();
+                            st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            st_spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
                             SistemaDeRiegoPozo fragment2 = new SistemaDeRiegoPozo();
                             Bundle parametro = new Bundle();
-                            parametro.putString("Key", et_inspectorR);
-                            parametro.putString("Key2", et_fechaCapturaR);
-                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            parametro.putString("Key", st_et_inspectorR);
+                            parametro.putString("Key2", st_et_fechaCapturaR);
+                            parametro.putString("Key3", st_spi_tipoObraCaptacionR);
                             fragment2.setArguments(parametro);
                             android.support.v4.app.FragmentTransaction fragmentTransaction2 = getFragmentManager().beginTransaction();
                             fragmentTransaction2.replace(R.id.frame, fragment2);
@@ -248,14 +192,14 @@ public class DatosFragment extends Fragment implements LocationListener {
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
-                            et_inspectorR = et_inspector.getText().toString();
-                            et_fechaCapturaR = et_fechaCaptura.getText().toString();
-                            spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
+                            st_et_inspectorR = et_inspector.getText().toString();
+                            st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
+                            st_spi_tipoObraCaptacionR = spi_tipoObraCaptacion.getSelectedItem().toString();
                             SistemaDeRiegoLaguna fragment3 = new SistemaDeRiegoLaguna();
                             Bundle parametro = new Bundle();
-                            parametro.putString("Key", et_inspectorR);
-                            parametro.putString("Key2", et_fechaCapturaR);
-                            parametro.putString("Key3", spi_tipoObraCaptacionR);
+                            parametro.putString("Key", st_et_inspectorR);
+                            parametro.putString("Key2", st_et_fechaCapturaR);
+                            parametro.putString("Key3", st_spi_tipoObraCaptacionR);
                             fragment3.setArguments(parametro);
                             android.support.v4.app.FragmentTransaction fragmentTransaction3 = getFragmentManager().beginTransaction();
                             fragmentTransaction3.replace(R.id.frame, fragment3);

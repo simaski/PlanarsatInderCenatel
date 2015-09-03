@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,50 +24,66 @@ import android.widget.Toast;
  */
 public class Vialidad extends Fragment implements LocationListener {
 
+    //****************Spinner**************************//
+    public Spinner spi_tipopavimento;
+
+    //****************EditText**************************//
+    public EditText et_tipoObraCaptacion;
+
+    //****************TextView**************************//
+    public TextView tvLatitud;
+    public TextView tvLongitud;
+    public TextView tvPrecision;
     public TextView latp1;
     public TextView latp2;
     public TextView lonp1;
     public TextView lonp2;
 
-    public String et_inspectorR;
-    public String et_fechaCapturaR;
-    public String spi_tipoObraCaptacionR;
-    public String spi_tipopavimentoR;
-
-    public Spinner spi_tipopavimento;
-
-    public EditText et_tipoObraCaptacion;
-
-    private LocationManager locationManager;
-
+    //****************Button**************************//
     public Button btCapturar;
 
+    //****************ImageView**************************//
+    public ImageView imv_captacion;
+    public ImageView imv_conduccion;
+    public ImageView imv_distribucion;
+    public ImageView imv_areaderiego;
+
+    //****************String**************************//
+    public String st_et_inspectorR;
+    public String st_et_fechaCapturaR;
+    public String st_spi_tipoObraCaptacionR;
+    public String st_spi_tipopavimentoR;
     public String latglobal;
     public String longlobal;
 
-    public TextView lblLatitud;
-    public TextView lblLongitud;
-    public TextView lblPrecision;
+    //****************Integer**************************//
+    public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
+    int in_dw; // ancho pantalla
+    int in_dh; // alto pantalla
+    int in_acum = 0;
 
-    public int acum;
+    //****************LocationManager**************************//
+    private LocationManager locationManager;
 
+    //****************Uri**************************//
+    private Uri imageFileUri; // Ver proveedores de contenidos
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_vialidad, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Vialidad");
         ((MainActivity) getActivity()).setVariable(1);
-        acum = 1;
+        in_acum = 1;
 
-        et_inspectorR = getArguments().getString("Key");
-        et_fechaCapturaR = getArguments().getString("Key2");
-        //spi_tipoObraCaptacionR = getArguments().getString("Key3");
+        st_et_inspectorR = getArguments().getString("Key");
+        st_et_fechaCapturaR = getArguments().getString("Key2");
+        //st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
 
         /*et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(spi_tipoObraCaptacionR);*/
+        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);*/
 
-        lblLatitud = (TextView) v.findViewById(R.id.latitudres);
-        lblLongitud = (TextView) v.findViewById(R.id.longitudres);
-        lblPrecision = (TextView) v.findViewById(R.id.precisonres);
+        tvLatitud = (TextView) v.findViewById(R.id.latitudres);
+        tvLongitud = (TextView) v.findViewById(R.id.longitudres);
+        tvPrecision = (TextView) v.findViewById(R.id.precisonres);
 
         latp1 = (TextView) v.findViewById(R.id.lat_p1);
         latp2 = (TextView) v.findViewById(R.id.lat_p2);
@@ -76,18 +94,18 @@ public class Vialidad extends Fragment implements LocationListener {
         btCapturar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (lblLatitud.getText().toString().equals("No disponible")) {
+                if (tvLatitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
-                } else if(acum == 1){
-                    latglobal = lblLatitud.getText().toString();
-                    longlobal = lblLongitud.getText().toString();
+                } else if(in_acum == 1){
+                    latglobal = tvLatitud.getText().toString();
+                    longlobal = tvLongitud.getText().toString();
                     latp1.setText(latglobal);
                     lonp1.setText(longlobal);
-                    acum = 2;
+                    in_acum = 2;
                     //DialogoPersonalizado();
-                }else if (acum == 2){
-                    latglobal = lblLatitud.getText().toString();
-                    longlobal = lblLongitud.getText().toString();
+                }else if (in_acum == 2){
+                    latglobal = tvLatitud.getText().toString();
+                    longlobal = tvLongitud.getText().toString();
                     latp2.setText(String.valueOf(latglobal));
                     lonp2.setText(String.valueOf(longlobal));
                     //DialogoPersonalizado();
@@ -103,7 +121,7 @@ public class Vialidad extends Fragment implements LocationListener {
         spi_tipopavimento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_tipopavimentoR = spi_tipopavimento.getSelectedItem().toString();
+                st_spi_tipopavimentoR = spi_tipopavimento.getSelectedItem().toString();
             }
 
             @Override
@@ -120,9 +138,9 @@ public class Vialidad extends Fragment implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-            lblLatitud.setText("No disponible");
-            lblLongitud.setText("No disponible");
-            lblPrecision.setText("No disponible");
+            tvLatitud.setText("No disponible");
+            tvLongitud.setText("No disponible");
+            tvPrecision.setText("No disponible");
         }
 
 
@@ -131,9 +149,9 @@ public class Vialidad extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        lblLatitud.setText(String.valueOf(location.getLatitude()));
-        lblLongitud.setText(String.valueOf(location.getLongitude()));
-        lblPrecision.setText(String.valueOf(location.getAccuracy()));
+        tvLatitud.setText(String.valueOf(location.getLatitude()));
+        tvLongitud.setText(String.valueOf(location.getLongitude()));
+        tvPrecision.setText(String.valueOf(location.getAccuracy()));
     }
 
     @Override
