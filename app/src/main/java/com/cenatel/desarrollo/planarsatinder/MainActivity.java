@@ -24,19 +24,28 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
+    //****************DrawerLayout**************************//
     DrawerLayout drawerLayout;
+
+    //****************Toolbar**************************//
     Toolbar toolbar;
+
+    //****************Action**************************//
     ActionBar actionBar;
-    TextView textView;
+
+    //****************TextView**************************//
+    public TextView tv_Latitud;
+    public TextView tv_Longitud;
+    public TextView tv_Precision;
+
+    //****************Integer**************************//
     int unicode;
 
+    //****************Handler**************************//
     final android.os.Handler hand = new android.os.Handler();
+
+    //****************LocationManager**************************//
     private LocationManager locationManager;
-
-
-    public TextView tvLatitud;
-    public TextView tvLongitud;
-    public TextView tvPrecision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         hand.removeCallbacks(actualizar);
         hand.postDelayed(actualizar,100);
 
-        tvLatitud = (TextView) findViewById(R.id.latitudres);
-        tvLongitud = (TextView) findViewById(R.id.longitudres);
-        tvPrecision = (TextView)   findViewById(R.id.precisonres);
+        tv_Latitud = (TextView) findViewById(R.id.latitudres);
+        tv_Longitud = (TextView) findViewById(R.id.longitudres);
+        tv_Precision = (TextView)   findViewById(R.id.precisonres);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -79,9 +88,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (location != null) {
             onLocationChanged(location);
         } else {
-            /*tvLatitud.setText("No disponible");
-            tvLongitud.setText("No disponible");
-            tvPrecision.setText("No disponible");*/
+            /*tv_Latitud.setText("No disponible");
+            tv_Longitud.setText("No disponible");
+            tv_Precision.setText("No disponible");*/
         }
 
     }
@@ -142,12 +151,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                 return true;
                             case R.id.item_navigation_drawer_drafts:
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_navigation_drawer_settings:
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
                                 Toast.makeText(MainActivity.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 /*Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -217,9 +224,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        /*tvLatitud.setText(String.valueOf(location.getLatitude()));
-        tvLongitud.setText(String.valueOf(location.getLongitude()));
-        tvPrecision.setText(String.valueOf(location.getAccuracy()));*/
+        /*tv_Latitud.setText(String.valueOf(location.getLatitude()));
+        tv_Longitud.setText(String.valueOf(location.getLongitude()));
+        tv_Precision.setText(String.valueOf(location.getAccuracy()));*/
     }
 
     @Override

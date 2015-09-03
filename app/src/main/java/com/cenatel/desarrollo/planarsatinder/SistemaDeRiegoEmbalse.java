@@ -44,9 +44,9 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     public EditText et_tipoObraCaptacion;
 
     //****************TextView**************************//
-    public TextView tvLatitud;
-    public TextView tvLongitud;
-    public TextView tvPrecision;
+    public TextView tv_Latitud;
+    public TextView tv_Longitud;
+    public TextView tv_Precision;
 
     //****************Button**************************//
     public Button btCapturarCaptacion;
@@ -167,9 +167,9 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         });
 
 
-        tvLatitud = (TextView) v.findViewById(R.id.latitudres);
-        tvLongitud = (TextView) v.findViewById(R.id.longitudres);
-        tvPrecision = (TextView) v.findViewById(R.id.precisonres);
+        tv_Latitud = (TextView) v.findViewById(R.id.latitudres);
+        tv_Longitud = (TextView) v.findViewById(R.id.longitudres);
+        tv_Precision = (TextView) v.findViewById(R.id.precisonres);
 
         imv_captacion = (ImageView) v.findViewById(R.id.imv_captacion);
         imv_conduccion = (ImageView) v.findViewById(R.id.imv_conduccion);
@@ -185,9 +185,9 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         if (location != null) {
             onLocationChanged(location);
         } else {
-            tvLatitud.setText("No disponible");
-            tvLongitud.setText("No disponible");
-            tvPrecision.setText("No disponible");
+            tv_Latitud.setText("No disponible");
+            tv_Longitud.setText("No disponible");
+            tv_Precision.setText("No disponible");
         }
 
         btCapturarCaptacion = (Button) v.findViewById(R.id.bt_fotoCaptacion);
@@ -196,7 +196,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         btCapturarAreaRiego = (Button) v.findViewById(R.id.bt_fotoAreaRiego);
 
         //--------------------CARPETA IMAGENES--------------------------------------------------------------
-        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/");
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Embalse/");
         if (!f.exists()) {
             f.mkdir();
         }
@@ -206,13 +206,13 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         in_dh = 200;
         st_timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         st_imageFileName = st_JPEG_FILE_PREFIX + st_timeStamp;
-        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/" + st_imageFileName;
+        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Embalse/" + st_imageFileName;
         imageFileUri = Uri.fromFile(new File(st_mCurrentPhotoPath));
 
         btCapturarCaptacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else {
                     in_acum = 1;
@@ -227,7 +227,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         btCapturarConduccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else {
                     in_acum = 2;
@@ -242,7 +242,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         btCapturarDistribucion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else {
                     in_acum = 3;
@@ -257,7 +257,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         btCapturarAreaRiego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else {
                     in_acum = 4;
@@ -307,8 +307,8 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tvLatitud.getText().toString();
-                    //longitudpan = tvLongitud.getText().toString();
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
                 }
                 if(in_acum == 2) {
                     imv_conduccion.setImageBitmap(bitmap1);
@@ -325,8 +325,8 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tvLatitud.getText().toString();
-                    //longitudpan = tvLongitud.getText().toString();
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
                 }
                 if(in_acum == 3) {
                     imv_distribucion.setImageBitmap(bitmap1);
@@ -343,8 +343,8 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tvLatitud.getText().toString();
-                    //longitudpan = tvLongitud.getText().toString();
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
                 }
                 if(in_acum == 4) {
                     imv_areaderiego.setImageBitmap(bitmap1);
@@ -361,8 +361,8 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tvLatitud.getText().toString();
-                    //longitudpan = tvLongitud.getText().toString();
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
                 }
 
             }
@@ -374,9 +374,9 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        tvLatitud.setText(String.valueOf(location.getLatitude()));
-        tvLongitud.setText(String.valueOf(location.getLongitude()));
-        tvPrecision.setText(String.valueOf(location.getAccuracy()));
+        tv_Latitud.setText(String.valueOf(location.getLatitude()));
+        tv_Longitud.setText(String.valueOf(location.getLongitude()));
+        tv_Precision.setText(String.valueOf(location.getAccuracy()));
     }
 
     @Override

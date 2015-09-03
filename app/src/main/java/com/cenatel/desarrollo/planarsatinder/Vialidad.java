@@ -31,9 +31,9 @@ public class Vialidad extends Fragment implements LocationListener {
     public EditText et_tipoObraCaptacion;
 
     //****************TextView**************************//
-    public TextView tvLatitud;
-    public TextView tvLongitud;
-    public TextView tvPrecision;
+    public TextView tv_Latitud;
+    public TextView tv_Longitud;
+    public TextView tv_Precision;
     public TextView latp1;
     public TextView latp2;
     public TextView lonp1;
@@ -81,9 +81,9 @@ public class Vialidad extends Fragment implements LocationListener {
         /*et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
         et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);*/
 
-        tvLatitud = (TextView) v.findViewById(R.id.latitudres);
-        tvLongitud = (TextView) v.findViewById(R.id.longitudres);
-        tvPrecision = (TextView) v.findViewById(R.id.precisonres);
+        tv_Latitud = (TextView) v.findViewById(R.id.latitudres);
+        tv_Longitud = (TextView) v.findViewById(R.id.longitudres);
+        tv_Precision = (TextView) v.findViewById(R.id.precisonres);
 
         latp1 = (TextView) v.findViewById(R.id.lat_p1);
         latp2 = (TextView) v.findViewById(R.id.lat_p2);
@@ -94,18 +94,18 @@ public class Vialidad extends Fragment implements LocationListener {
         btCapturar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else if(in_acum == 1){
-                    latglobal = tvLatitud.getText().toString();
-                    longlobal = tvLongitud.getText().toString();
+                    latglobal = tv_Latitud.getText().toString();
+                    longlobal = tv_Longitud.getText().toString();
                     latp1.setText(latglobal);
                     lonp1.setText(longlobal);
                     in_acum = 2;
                     //DialogoPersonalizado();
                 }else if (in_acum == 2){
-                    latglobal = tvLatitud.getText().toString();
-                    longlobal = tvLongitud.getText().toString();
+                    latglobal = tv_Latitud.getText().toString();
+                    longlobal = tv_Longitud.getText().toString();
                     latp2.setText(String.valueOf(latglobal));
                     lonp2.setText(String.valueOf(longlobal));
                     //DialogoPersonalizado();
@@ -138,9 +138,9 @@ public class Vialidad extends Fragment implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-            tvLatitud.setText("No disponible");
-            tvLongitud.setText("No disponible");
-            tvPrecision.setText("No disponible");
+            tv_Latitud.setText("No disponible");
+            tv_Longitud.setText("No disponible");
+            tv_Precision.setText("No disponible");
         }
 
 
@@ -149,9 +149,9 @@ public class Vialidad extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        tvLatitud.setText(String.valueOf(location.getLatitude()));
-        tvLongitud.setText(String.valueOf(location.getLongitude()));
-        tvPrecision.setText(String.valueOf(location.getAccuracy()));
+        tv_Latitud.setText(String.valueOf(location.getLatitude()));
+        tv_Longitud.setText(String.valueOf(location.getLongitude()));
+        tv_Precision.setText(String.valueOf(location.getAccuracy()));
     }
 
     @Override

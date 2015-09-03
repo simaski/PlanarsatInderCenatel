@@ -2,6 +2,8 @@ package com.cenatel.desarrollo.planarsatinder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,9 +42,9 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
     public EditText et_tipoObraCaptacion;
 
     //****************TextView**************************//
-    public TextView tvLatitud;
-    public TextView tvLongitud;
-    public TextView tvPrecision;
+    public TextView tv_Latitud;
+    public TextView tv_Longitud;
+    public TextView tv_Precision;
 
     //****************Button**************************//
     public Button btCapturarCaptacion;
@@ -139,9 +142,14 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
             }
         });
 
-        tvLatitud = (TextView) v.findViewById(R.id.latitudres);
-        tvLongitud = (TextView) v.findViewById(R.id.longitudres);
-        tvPrecision = (TextView) v.findViewById(R.id.precisonres);
+        tv_Latitud = (TextView) v.findViewById(R.id.latitudres);
+        tv_Longitud = (TextView) v.findViewById(R.id.longitudres);
+        tv_Precision = (TextView) v.findViewById(R.id.precisonres);
+
+        imv_captacion = (ImageView) v.findViewById(R.id.imv_captacion);
+        imv_conduccion = (ImageView) v.findViewById(R.id.imv_conduccion);
+        imv_distribucion = (ImageView) v.findViewById(R.id.imv_distribucion);
+        imv_areaderiego = (ImageView) v.findViewById(R.id.imv_areariego);
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -152,15 +160,18 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
         if (location != null) {
             onLocationChanged(location);
         } else {
-            tvLatitud.setText("No disponible");
-            tvLongitud.setText("No disponible");
-            tvPrecision.setText("No disponible");
+            tv_Latitud.setText("No disponible");
+            tv_Longitud.setText("No disponible");
+            tv_Precision.setText("No disponible");
         }
 
         btCapturarCaptacion = (Button) v.findViewById(R.id.bt_fotoCaptacion);
+        btCapturarConduccion = (Button) v.findViewById(R.id.bt_fotoConduccion);
+        btCapturarDistribucion = (Button) v.findViewById(R.id.bt_fotoDistribucion);
+        btCapturarAreaRiego = (Button) v.findViewById(R.id.bt_fotoAreaRiego);
 
         //--------------------CARPETA IMAGENES--------------------------------------------------------------
-        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/");
+        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Derivacion/");
         if (!f.exists()) {
             f.mkdir();
         }
@@ -170,15 +181,16 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
         in_dh = 200;
         st_timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         st_imageFileName = st_JPEG_FILE_PREFIX + st_timeStamp;
-        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/" + st_imageFileName;
+        st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Derivacion/" + st_imageFileName;
         imageFileUri = Uri.fromFile(new File(st_mCurrentPhotoPath));
 
         btCapturarCaptacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvLatitud.getText().toString().equals("No disponible")) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
                     Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
                 } else {
+                    in_acum = 1;
                     Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
                     startActivityForResult(ivd, TAKE_PICTURE);
@@ -187,14 +199,158 @@ public class SistemaDeRiegoDerivacion extends Fragment implements LocationListen
             }
         });
 
+        btCapturarConduccion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    in_acum = 2;
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });
+
+        btCapturarDistribucion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    in_acum = 3;
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });
+
+        btCapturarAreaRiego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tv_Latitud.getText().toString().equals("No disponible")) {
+                    Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+                } else {
+                    in_acum = 4;
+                    Intent ivd = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    ivd.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                    startActivityForResult(ivd, TAKE_PICTURE);
+                }
+
+            }
+        });;
+
         return v;
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+       /* Se revisa si la imagen viene de la camara (TAKE_PICTURE) o de la galeria (SELECT_PICTURE)*/
+        try {
+            if (requestCode == TAKE_PICTURE) {
+
+                BitmapFactory.Options bmOptions1 = new BitmapFactory.Options();
+                bmOptions1.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
+                int photoW = bmOptions1.outWidth;
+                int photoH = bmOptions1.outHeight;
+                // Determinar cuanto escalamos la imagen
+                int scaleFactor1 = Math.min(photoW / in_dw, photoH / in_dh);
+                // Decodificar la imagen en un Bitmap escalado a View
+                bmOptions1.inJustDecodeBounds = false;
+                bmOptions1.inSampleSize = scaleFactor1;
+                bmOptions1.inPurgeable = true;
+                Bitmap bitmap1 = BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
+                if(in_acum == 1) {
+                    imv_captacion.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 1!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+                if(in_acum == 2) {
+                    imv_conduccion.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 2!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+                if(in_acum == 3) {
+                    imv_distribucion.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + 2 + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 3!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+                if(in_acum == 4) {
+                    imv_areaderiego.setImageBitmap(bitmap1);
+                    st_imageFileName = "Planarsat";
+                    File file = new File(st_mCurrentPhotoPath + st_imageFileName + 3 + st_JPEG_FILE_SUFFIX);
+                    try {
+                        file.createNewFile();
+                        FileOutputStream out = new FileOutputStream(file);
+                        // bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, out);//Convertimos la imagen a JPEG
+                        bitmap1.compress(Bitmap.CompressFormat.PNG, 50, out);//Convertimos la imagen a JPEG
+                        out.flush();
+                        out.close();
+                        Toast.makeText(getActivity(), "Hecho 4!", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //latitudpan = tv_Latitud.getText().toString();
+                    //longitudpan = tv_Longitud.getText().toString();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//---------------------------FIN Funciones IMAGEN-------------------------------------------------------------------
+
+    @Override
     public void onLocationChanged(Location location) {
-        tvLatitud.setText(String.valueOf(location.getLatitude()));
-        tvLongitud.setText(String.valueOf(location.getLongitude()));
-        tvPrecision.setText(String.valueOf(location.getAccuracy()));
+        tv_Latitud.setText(String.valueOf(location.getLatitude()));
+        tv_Longitud.setText(String.valueOf(location.getLongitude()));
+        tv_Precision.setText(String.valueOf(location.getAccuracy()));
     }
 
     @Override

@@ -25,6 +25,7 @@ import java.util.Calendar;
  */
 public class DatosFragment extends Fragment implements LocationListener {
 
+    //****************Spinner**************************//
     public Spinner spi_Estados;
     public Spinner spi_Municipios;
     public Spinner spi_Parroquias;
@@ -32,25 +33,26 @@ public class DatosFragment extends Fragment implements LocationListener {
     public Spinner spi_TipoObra;
     public Spinner spi_tipoObraCaptacion;
 
-    public TextView tv_ObraCaptacion;
-    public TextView tv_tipoObraCaptacion;
-
+    //****************EditText**************************//
     public EditText et_fechaCaptura;
     public EditText et_inspector;
 
-    public String spi_EstadosR;
-    public String spi_MunicipiosR;
-    public String spi_ParroquiasR;
-    public String spi_SectorR;
-    public String spi_TipoObraR;
+    //****************TextView**************************//
+    public TextView tv_ObraCaptacion;
+    public TextView tv_tipoObraCaptacion;
+
+    //****************String**************************//
+    public String st_spi_TipoObraR;
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
     public String st_spi_tipoObraCaptacionR;
 
-    private int mYear;
-    private int mMonth;
-    private int mDay;
+    //****************Integer**************************//
+    private int in_mYear;
+    private int in_mMonth;
+    private int in_mDay;
 
+    //****************Calendar**************************//
     private Calendar c;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,9 +69,9 @@ public class DatosFragment extends Fragment implements LocationListener {
         //***********************************************************************************************//
 
         c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH) + 1;
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        in_mYear = c.get(Calendar.YEAR);
+        in_mMonth = c.get(Calendar.MONTH) + 1;
+        in_mDay = c.get(Calendar.DAY_OF_MONTH);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         et_inspector = (EditText) v.findViewById(R.id.et_inspector);
@@ -84,7 +86,7 @@ public class DatosFragment extends Fragment implements LocationListener {
         spi_TipoObra.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spi_TipoObraR = spi_TipoObra.getSelectedItem().toString();
+                st_spi_TipoObraR = spi_TipoObra.getSelectedItem().toString();
 
                 //Toast.makeText(getActivity(), "Spinner1: position=" + position + " id=" + id, Toast.LENGTH_SHORT).show();
                 switch (position) {
