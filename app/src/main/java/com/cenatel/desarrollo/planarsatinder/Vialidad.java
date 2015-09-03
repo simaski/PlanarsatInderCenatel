@@ -122,7 +122,7 @@ public class Vialidad extends Fragment implements LocationListener {
         } else {
             tv_Latitud.setText("No disponible");
             tv_Longitud.setText("No disponible");
-            tv_Precision.setText("No disponible ");
+            tv_Precision.setText("No disponible");
         }
 
         btCapturarPanoramica = (Button) v.findViewById(R.id.bt_panoramica);
