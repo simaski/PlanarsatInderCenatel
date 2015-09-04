@@ -135,10 +135,48 @@
                 android:longClickable="true" />
 
             <TextView
-                android:id="@+id/info_geo"
+                android:id="@+id/tv_problemas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spi_tipopavimento"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_problemas"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_problemas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_problemas"
+                android:ems="10"
+                android:hint="Escriba Problemas Encontrados" />
+
+            <TextView
+                android:id="@+id/tv_observaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_problemas"
+                android:layout_marginTop="10dp"
+                android:text="@string/op_observaciones"
+                android:textColor="@color/md_text"
+                android:textSize="21sp" />
+
+            <EditText
+                android:id="@+id/et_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_observaciones"
+                android:ems="10"
+                android:hint="Escriba Soluciones" />
+
+            <TextView
+                android:id="@+id/info_geo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_observaciones"
                 android:layout_margin="8dip"
                 android:drawableRight="@drawable/mundo2"
                 android:gravity="center_vertical"

@@ -110,6 +110,8 @@ public class DatosFragment extends Fragment implements LocationListener {
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
                         } else {
+                            st_et_inspectorR = et_inspector.getText().toString();
+                            st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
                             Vialidad fragment = new Vialidad();
                             Bundle parametro = new Bundle();
                             parametro.putString("Key", st_et_inspectorR);

@@ -1,6 +1,7 @@
 package com.cenatel.desarrollo.planarsatinder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cenatel.desarrollo.planarsatinderbd.SQLite;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,6 +44,8 @@ public class Vialidad extends Fragment implements LocationListener {
     //****************EditText**************************//
     public EditText et_puntoOrigen;
     public EditText et_puntoDestino;
+    public EditText et_observaciones;
+    public EditText et_problemas;
 
     //****************TextView**************************//
     public TextView tv_Latitud;
@@ -46,8 +53,9 @@ public class Vialidad extends Fragment implements LocationListener {
     public TextView tv_Precision;
 
     //****************Button**************************//
-    public Button btCapturarPanoramica;
-    public Button btCapturarDetalle;
+    public Button bt_CapturarPanoramica;
+    public Button bt_CapturarDetalle;
+    public Button bt_Enviar;
 
     //****************ImageView**************************//
     public ImageView imv_panoramica;
@@ -58,10 +66,19 @@ public class Vialidad extends Fragment implements LocationListener {
     private String st_mCurrentPhotoPath; // String para guardar el camino hacia la foto
     private String st_imageFileName;
     private String st_timeStamp;
+    private String st_et_puntoOrigen;
+    private String st_et_puntoDestino;
+    private String st_et_problemas;
+    private String st_et_observaciones;
     private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
     private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
+    public String st_et_tipoObraCaptacionR;
+    public String st_longitudpanR;
+    public String st_latitudpanR;
+    public String st_latituddetR;
+    public String st_longituddetR;
 
     //****************Integer**************************//
     public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
@@ -75,19 +92,24 @@ public class Vialidad extends Fragment implements LocationListener {
     //****************Uri**************************//
     private Uri imageFileUri; // Ver proveedores de contenidos
 
+    //****************Sqlite**************************//
+    private SQLite sqlite;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_vialidad, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Vialidad");
         ((MainActivity) getActivity()).setVariable(1);
-        st_et_inspectorR = getArguments().getString("Key");
-        st_et_fechaCapturaR = getArguments().getString("Key2");
-        in_acum = 1;
 
         st_et_inspectorR = getArguments().getString("Key");
         st_et_fechaCapturaR = getArguments().getString("Key2");
+        st_et_tipoObraCaptacionR = "Vialidad";
+
+        in_acum = 1;
 
         et_puntoOrigen = (EditText) v.findViewById(R.id.et_puntoOrigen);
         et_puntoDestino = (EditText) v.findViewById(R.id.et_puntoDestino);
+        et_observaciones = (EditText) v.findViewById(R.id.et_observaciones);
+        et_problemas = (EditText) v.findViewById(R.id.et_problemas);
 
         spi_tipopavimento = (Spinner) v.findViewById(R.id.spi_tipopavimento);
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipopavimento, android.R.layout.simple_spinner_item);
@@ -125,8 +147,9 @@ public class Vialidad extends Fragment implements LocationListener {
             tv_Precision.setText("No disponible");
         }
 
-        btCapturarPanoramica = (Button) v.findViewById(R.id.bt_panoramica);
-        btCapturarDetalle = (Button) v.findViewById(R.id.bt_detalle);
+        bt_CapturarPanoramica = (Button) v.findViewById(R.id.bt_panoramica);
+        bt_CapturarDetalle = (Button) v.findViewById(R.id.bt_detalle);
+        bt_Enviar = (Button) v.findViewById(R.id.bt_enviar);
 
         //--------------------CARPETA IMAGENES--------------------------------------------------------------
         File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Vialidad/");
@@ -142,7 +165,7 @@ public class Vialidad extends Fragment implements LocationListener {
         st_mCurrentPhotoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Planarsat/Vialidad/" + st_imageFileName;
         imageFileUri = Uri.fromFile(new File(st_mCurrentPhotoPath));
 
-        btCapturarPanoramica.setOnClickListener(new View.OnClickListener() {
+        bt_CapturarPanoramica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tv_Latitud.getText().toString().equals("No disponible")) {
@@ -157,7 +180,7 @@ public class Vialidad extends Fragment implements LocationListener {
             }
         });
 
-        btCapturarDetalle.setOnClickListener(new View.OnClickListener() {
+        bt_CapturarDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tv_Latitud.getText().toString().equals("No disponible")) {
@@ -169,6 +192,45 @@ public class Vialidad extends Fragment implements LocationListener {
                     startActivityForResult(ivd, TAKE_PICTURE);
                 }
 
+            }
+        });
+
+        bt_Enviar = (Button) v.findViewById(R.id.bt_enviar);
+        bt_Enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (et_puntoOrigen.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (et_puntoDestino.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (imv_panoramica.getDrawable() == null) {
+                    CamposVacios();
+                } else if (imv_detalle.getDrawable() == null) {
+                    CamposVacios();
+                } else {
+                    st_et_puntoOrigen = et_puntoOrigen.getText().toString();
+                    st_et_puntoDestino = et_puntoDestino.getText().toString();
+                    st_et_observaciones = et_observaciones.getText().toString();
+                    st_et_problemas = et_problemas.getText().toString();
+
+                    Log.i("Aqui", "DDDDDDDDD "+st_et_inspectorR);
+
+                    sqlite = new SQLite(getActivity());
+                    sqlite.abrir();
+                    sqlite.addRegistro(st_et_inspectorR, st_et_fechaCapturaR, st_et_tipoObraCaptacionR, st_et_puntoOrigen, st_et_puntoDestino, st_longitudpanR, st_latitudpanR, st_longituddetR, st_latituddetR,
+                            st_spi_tipopavimentoR, st_et_problemas, st_et_observaciones);
+                    sqlite.cerrar();
+
+
+
+                    et_puntoOrigen.setText("");
+                    et_puntoDestino.setText("");
+                    et_problemas.setText("");
+                    et_observaciones.setText("");
+                    imv_panoramica.setImageDrawable(null);
+                    imv_detalle.setImageDrawable(null);
+
+                }
             }
         });
 
@@ -195,7 +257,7 @@ public class Vialidad extends Fragment implements LocationListener {
                 bmOptions1.inSampleSize = scaleFactor1;
                 bmOptions1.inPurgeable = true;
                 Bitmap bitmap1 = BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
-                if(in_acum == 1) {
+                if (in_acum == 1) {
                     imv_panoramica.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX);
@@ -210,10 +272,10 @@ public class Vialidad extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tv_Latitud.getText().toString();
-                    //longitudpan = tv_Longitud.getText().toString();
+                    st_latitudpanR= tv_Latitud.getText().toString();
+                    st_longitudpanR = tv_Longitud.getText().toString();
                 }
-                if(in_acum == 2) {
+                if (in_acum == 2) {
                     imv_detalle.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX);
@@ -228,8 +290,8 @@ public class Vialidad extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //latitudpan = tv_Latitud.getText().toString();
-                    //longitudpan = tv_Longitud.getText().toString();
+                    st_latituddetR = tv_Latitud.getText().toString();
+                    st_longituddetR = tv_Longitud.getText().toString();
                 }
 
             }
@@ -238,6 +300,25 @@ public class Vialidad extends Fragment implements LocationListener {
         }
 
     }//---------------------------FIN Funciones IMAGEN-------------------------------------------------------------------
+
+    public void CamposVacios() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        // Setting Dialog Title
+        alertDialog.setTitle("Alerta!!!");
+        // Setting Dialog Message
+        alertDialog.setMessage("Uno o varios campos obligatorios no han sido llenados. O no ha capturado las Fotografias");
+        // Setting Icon to Dialog
+        //alertDialog.setIcon(R.drawable.delete);
+        // On pressing Settings button
+        alertDialog.setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();
+    }
+
 
     @Override
     public void onLocationChanged(Location location) {
