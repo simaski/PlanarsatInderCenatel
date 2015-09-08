@@ -134,11 +134,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                 menuItem.setChecked(true);
                                 //textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
-                                Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
-                                /*PuntosFragment fragment2 = new PuntosFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction2.replace(R.id.frame, fragment2);
-                                fragmentTransaction2.commit();*/
+                                VerDatosListaFragment fragment3 = new VerDatosListaFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction3.replace(R.id.frame, fragment3);
+                                fragmentTransaction3.commit();
                                 return true;
                             case R.id.item_navigation_drawer_sent_mail:
                                 menuItem.setChecked(true);
