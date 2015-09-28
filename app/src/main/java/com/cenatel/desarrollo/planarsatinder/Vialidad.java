@@ -79,6 +79,8 @@ public class Vialidad extends Fragment implements LocationListener {
     public String st_latitudpanR;
     public String st_latituddetR;
     public String st_longituddetR;
+    public String st_nombrePanoramica;
+    public String st_nombreDetalle;
 
     //****************Integer**************************//
     public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
@@ -218,7 +220,7 @@ public class Vialidad extends Fragment implements LocationListener {
                     sqlite = new SQLite(getActivity());
                     sqlite.abrir();
                     sqlite.addRegistro(st_et_inspectorR, st_et_fechaCapturaR, st_et_tipoObraCaptacionR, st_et_puntoOrigen, st_et_puntoDestino, st_longitudpanR, st_latitudpanR, st_longituddetR, st_latituddetR,
-                            st_spi_tipopavimentoR, st_et_problemas, st_et_observaciones);
+                            st_spi_tipopavimentoR, st_et_problemas, st_et_observaciones,st_nombrePanoramica,st_nombreDetalle);
                     sqlite.cerrar();
 
 
@@ -272,6 +274,7 @@ public class Vialidad extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_nombrePanoramica = st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX;
                     st_latitudpanR= tv_Latitud.getText().toString();
                     st_longitudpanR = tv_Longitud.getText().toString();
                 }
@@ -290,6 +293,7 @@ public class Vialidad extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_nombreDetalle = st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX;
                     st_latituddetR = tv_Latitud.getText().toString();
                     st_longituddetR = tv_Longitud.getText().toString();
                 }

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cenatel.desarrollo.planarsatinderbd.SQLite;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +45,23 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
 
     //****************EditText**************************//
     public EditText et_tipoObraCaptacion;
+    public EditText et_nombreSistemaRiego;
+    public EditText et_capacidadObraConduccion;
+    public EditText et_capacidadObraDistribucion;
+    public EditText et_longitudDiqueEmbalse;
+    public EditText et_alturaDiqueEmbalse;
+    public EditText et_espejoAguaEmbalse;
+    public EditText et_tipoTomaEmbalse;
+    public EditText et_capacidadTomaEmbalse;
+    public EditText et_tipoAliviaderoEmbalse;
+    public EditText et_capacidadAliviaderoEmbalse;
+    public EditText et_superficieAreaRiegoEmbalse;
+    public EditText et_cultivosAreaRiegoEmbalse;
+    public EditText et_areaRegableEmbalse;
+    public EditText et_areaBajoRiegoEmbalse;
+    public EditText et_areaRegadaEmbalse;
+    public EditText et_problemas;
+    public EditText et_observaciones;
 
     //****************TextView**************************//
     public TextView tv_Latitud;
@@ -53,6 +73,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     public Button btCapturarConduccion;
     public Button btCapturarDistribucion;
     public Button btCapturarAreaRiego;
+    public Button bt_Enviar;
 
     //****************ImageView**************************//
     public ImageView imv_captacion;
@@ -61,19 +82,42 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     public ImageView imv_areaderiego;
 
     //****************String**************************//
-    public String st_spi_tipoObraDistribucionR;
-    public String st_spi_diqueR;
-    public String st_spi_tipoObraConduccionR;
-    public String st_spi_metodosriegoR;
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
-    public String st_spi_tipoObraCaptacionR;
+    public String st_et_nombreSistemaRiegoR;
+    public String st_et_tipoObraCaptacionR;
+    public String st_tv_tipoObraCaptacionR;
+    public String st_spi_tipoObraConduccionR;
+    public String st_et_capacidadObraConduccionR;
+    public String st_tv_tipoObraConduccionR;
+    public String st_spi_tipoObraDistribucionR;
+    public String st_et_capacidadObraDistribucionR;
+    public String st_tv_tipoObraDistribucionR;
+    public String st_spi_diqueR;
+    public String st_et_longitudDiqueEmbalseR;
+    public String st_et_alturaDiqueEmbalseR;
+    public String st_et_espejoAguaEmbalseR;
+    public String st_et_tipoTomaEmbalseR;
+    public String st_et_capacidadTomaEmbalseR;
+    public String st_et_tipoAliviaderoEmbalseR;
+    public String st_et_capacidadAliviaderoEmbalseR;
+    public String st_et_superficieAreaRiegoEmbalseR;
+    public String st_et_cultivosAreaRiegoEmbalseR;
+    public String st_spi_metodosriegoR;
+    public String st_et_areaRegableEmbalseR;
+    public String st_et_areaBajoRiegoEmbalseR;
+    public String st_et_areaRegadaEmbalseR;
+    public String st_tv_areaRiegoEmbalseR;
+    public String st_et_problemasR;
+    public String st_et_observacionesR;
+    public String st_tv_longitudR;
+    public String st_tv_latitudR;
     private String st_mCurrentPhotoPath; // String para guardar el camino hacia la foto
     private String st_imageFileName;
     private String st_timeStamp;
     private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
     private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
-    
+
     //****************Integer**************************//
     public static int TAKE_PICTURE = 1;//no lleva in_ por ser una variable usada a la hora de la captura de la imagen
     int in_dw; // ancho pantalla
@@ -86,8 +130,9 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
     //****************Uri**************************//
     private Uri imageFileUri; // Ver proveedores de contenidos
 
+    //****************Sqlite**************************//
+    private SQLite sqlite;
 
-    
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegoembalse, container, false);
@@ -95,15 +140,32 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         ((MainActivity) getActivity()).setVariable(1);
 
 
-
         st_et_inspectorR = getArguments().getString("Key");
         st_et_fechaCapturaR = getArguments().getString("Key2");
-        st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
 
+        st_et_tipoObraCaptacionR = getArguments().getString("Key3");
         et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);
+        et_tipoObraCaptacion.setText(st_et_tipoObraCaptacionR);
 
-        Toast.makeText(getActivity(),"Nombre: " +st_et_inspectorR ,Toast.LENGTH_SHORT).show();
+        et_nombreSistemaRiego = (EditText) v.findViewById(R.id.et_nombreSistema);
+        et_capacidadObraConduccion = (EditText) v.findViewById(R.id.et_capacidadObraConduccion);
+        et_capacidadObraDistribucion = (EditText) v.findViewById(R.id.et_capacidadObraDistribucion);
+        et_longitudDiqueEmbalse = (EditText) v.findViewById(R.id.et_longitudembalse);
+        et_alturaDiqueEmbalse = (EditText) v.findViewById(R.id.et_alturaembalse);
+        et_espejoAguaEmbalse = (EditText) v.findViewById(R.id.et_espejoembalse);
+        et_tipoTomaEmbalse = (EditText) v.findViewById(R.id.et_tipoToma);
+        et_capacidadTomaEmbalse = (EditText) v.findViewById(R.id.et_capacidadToma);
+        et_tipoAliviaderoEmbalse = (EditText) v.findViewById(R.id.et_tipoAliviadero);
+        et_capacidadAliviaderoEmbalse = (EditText) v.findViewById(R.id.et_capacidadAliviadero);
+        et_superficieAreaRiegoEmbalse = (EditText) v.findViewById(R.id.et_superficieriego);
+        et_cultivosAreaRiegoEmbalse = (EditText) v.findViewById(R.id.et_cultivos);
+        et_areaRegableEmbalse = (EditText) v.findViewById(R.id.et_arearegable);
+        et_areaBajoRiegoEmbalse = (EditText) v.findViewById(R.id.et_areabajoriego);
+        et_areaRegadaEmbalse = (EditText) v.findViewById(R.id.et_arearegada);
+        et_problemas = (EditText) v.findViewById(R.id.et_problemas);
+        et_observaciones = (EditText) v.findViewById(R.id.et_observaciones);
+
+        Toast.makeText(getActivity(), "Nombre: " + st_et_inspectorR, Toast.LENGTH_SHORT).show();
 
 
         spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
@@ -270,6 +332,64 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         });
 
 
+        bt_Enviar = (Button) v.findViewById(R.id.bt_enviar);
+        bt_Enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*if (et_puntoOrigen.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (et_puntoDestino.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (imv_panoramica.getDrawable() == null) {
+                    CamposVacios();
+                } else if (imv_detalle.getDrawable() == null) {
+                    CamposVacios();
+                } else {*/
+
+                    st_et_nombreSistemaRiegoR = et_nombreSistemaRiego.getText().toString();
+                    st_et_capacidadObraConduccionR = et_capacidadObraConduccion.getText().toString();
+                    st_et_capacidadObraDistribucionR = et_capacidadObraDistribucion.getText().toString();
+                    st_et_longitudDiqueEmbalseR = et_longitudDiqueEmbalse.getText().toString();
+                    st_et_alturaDiqueEmbalseR = et_alturaDiqueEmbalse.getText().toString();
+                    st_et_espejoAguaEmbalseR = et_espejoAguaEmbalse.getText().toString();
+                    st_et_tipoTomaEmbalseR = et_tipoTomaEmbalse.getText().toString();
+                    st_et_capacidadTomaEmbalseR = et_capacidadTomaEmbalse.getText().toString();
+                    st_et_tipoAliviaderoEmbalseR = et_tipoAliviaderoEmbalse.getText().toString();
+                    st_et_capacidadAliviaderoEmbalseR = et_capacidadAliviaderoEmbalse.getText().toString();
+                    st_et_superficieAreaRiegoEmbalseR = et_superficieAreaRiegoEmbalse.getText().toString();
+                    st_et_cultivosAreaRiegoEmbalseR = et_cultivosAreaRiegoEmbalse.getText().toString();
+                    st_et_areaRegableEmbalseR = et_areaRegableEmbalse.getText().toString();
+                    st_et_areaBajoRiegoEmbalseR = et_areaBajoRiegoEmbalse.getText().toString();
+                    st_et_areaRegadaEmbalseR = et_areaRegadaEmbalse.getText().toString();
+                    st_et_problemasR = et_problemas.getText().toString();
+                    st_et_observacionesR = et_observaciones.getText().toString();
+                    st_tv_longitudR = tv_Longitud.getText().toString();
+                    st_tv_latitudR = tv_Latitud.getText().toString();
+
+                    Log.i("Aqui", "DDDDDDDDD " + st_et_inspectorR);
+
+                    sqlite = new SQLite(getActivity());
+                    sqlite.abrir();
+                    sqlite.addRegistroEmbalse(st_et_inspectorR, st_et_fechaCapturaR, st_et_nombreSistemaRiegoR, st_et_tipoObraCaptacionR, st_tv_tipoObraCaptacionR, st_spi_tipoObraConduccionR,
+                            st_et_capacidadObraConduccionR, st_tv_tipoObraConduccionR, st_spi_tipoObraDistribucionR, st_et_capacidadObraDistribucionR, st_tv_tipoObraDistribucionR, st_spi_diqueR,
+                            st_et_longitudDiqueEmbalseR, st_et_alturaDiqueEmbalseR, st_et_espejoAguaEmbalseR, st_et_tipoTomaEmbalseR, st_et_capacidadTomaEmbalseR, st_et_tipoAliviaderoEmbalseR,
+                            st_et_capacidadAliviaderoEmbalseR, st_et_superficieAreaRiegoEmbalseR, st_et_cultivosAreaRiegoEmbalseR, st_spi_metodosriegoR, st_et_areaRegableEmbalseR,
+                            st_et_areaBajoRiegoEmbalseR, st_et_areaRegadaEmbalseR, st_tv_areaRiegoEmbalseR, st_et_problemasR, st_et_observacionesR, st_tv_longitudR, st_tv_latitudR);
+                    sqlite.cerrar();
+
+
+                   /* et_puntoOrigen.setText("");
+                    et_puntoDestino.setText("");
+                    et_problemas.setText("");
+                    et_observaciones.setText("");
+                    imv_panoramica.setImageDrawable(null);
+                    imv_detalle.setImageDrawable(null);
+
+                }*/
+            }
+        });
+
+
         return v;
     }
 
@@ -292,7 +412,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                 bmOptions1.inSampleSize = scaleFactor1;
                 bmOptions1.inPurgeable = true;
                 Bitmap bitmap1 = BitmapFactory.decodeFile(st_mCurrentPhotoPath, bmOptions1);
-                if(in_acum == 1) {
+                if (in_acum == 1) {
                     imv_captacion.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX);
@@ -307,10 +427,11 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraCaptacionR = st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
-                if(in_acum == 2) {
+                if (in_acum == 2) {
                     imv_conduccion.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX);
@@ -325,10 +446,11 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraConduccionR = st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
-                if(in_acum == 3) {
+                if (in_acum == 3) {
                     imv_distribucion.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + 2 + st_JPEG_FILE_SUFFIX);
@@ -343,10 +465,11 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraDistribucionR = st_mCurrentPhotoPath + st_imageFileName + 2 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
-                if(in_acum == 4) {
+                if (in_acum == 4) {
                     imv_areaderiego.setImageBitmap(bitmap1);
                     st_imageFileName = "Planarsat";
                     File file = new File(st_mCurrentPhotoPath + st_imageFileName + 3 + st_JPEG_FILE_SUFFIX);
@@ -361,6 +484,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_areaRiegoEmbalseR = st_mCurrentPhotoPath + st_imageFileName + 3 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }

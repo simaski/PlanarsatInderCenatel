@@ -36,17 +36,9 @@ public class SQLite {
         sqliteHelper.close();
     }
 
-    /**
-     * Metodo para agregar un nuevo registro
-     * @param String nombre Nombre completo
-     * @param String fecha fecha de nacimiento de la forma 12/05/1900
-     * @param String pais
-     * @param String sexo
-     * @param String ingles si habla ingles
-     * @return BOOLEAN TRUE si tuvo exito FALSE caso contrario
-     * */
+
     public boolean addRegistro( String funcionario_nombre,String fecha_captura,String tipo_obra_captacion,String punto_origen,String punto_destino,String latitud_pan,String longitud_pan,
-                                String latitud_det,String longitud_det,String tipo_pavimento,String observacion,String problemas)
+                                String latitud_det,String longitud_det,String tipo_pavimento,String observacion,String problemas,String nombre_panoramica,String nombre_detalle)
     {
         if( funcionario_nombre.length()> 0 )
         {
@@ -63,8 +55,58 @@ public class SQLite {
             contentValues.put(sqliteHelper.TipoPavimento,tipo_pavimento);
             contentValues.put(sqliteHelper.Problemas,problemas);
             contentValues.put(sqliteHelper.Observacion,observacion);
+            contentValues.put(sqliteHelper.NombrePanoramica,nombre_panoramica);
+            contentValues.put(sqliteHelper.NombreDetalle,nombre_detalle);
             Log.i("SQLite", "Nuevo registro ");
             return ( db.insert( sqliteHelper.N_TABLA , null, contentValues ) != -1 )?true:false;
+        }
+        else
+            return false;
+    }
+
+
+    public boolean addRegistroEmbalse( String funcionario_nombre,String fecha_captura,String nombre_sistema_riego, String tipo_obra_captacion,String nombre_foto_captacion,
+                                       String tipo_obra_conduccion,String capacidad_obra_conduccion,String nombre_foto_conduccion, String tipo_obra_distribucion,
+                                       String capacidad_obra_distribucion, String nombre_foto_distribucion, String tipo_dique_embalse, String longitud_dique_embalse,
+                                       String altura_dique_embalse, String tipo_toma_embalse, String espejo_agua_embalse, String capacidad_toma_embalse, String tipo_aliviadero_embalse,
+                                       String capacidad_aliviadero_embalse, String superficie_area_riego, String cultivos_area_riego, String metodos_riego, String area_regable,
+                                       String area_bajo_riego, String area_regada, String nombre_foto_area_riego, String observacion, String problemas,String longitud,String latitud)
+    {
+        if( funcionario_nombre.length()> 0 )
+        {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(sqliteHelper.FuncionarioNombre,funcionario_nombre);
+            contentValues.put(sqliteHelper.FechaCaptura,fecha_captura);
+            contentValues.put(sqliteHelper.NombreSistemaRiego,nombre_sistema_riego);
+            contentValues.put(sqliteHelper.TipoObraCaptacion,tipo_obra_captacion);
+            contentValues.put(sqliteHelper.NombreFotoCaptacion,nombre_foto_captacion);
+            contentValues.put(sqliteHelper.TipoObraConduccion,tipo_obra_conduccion);
+            contentValues.put(sqliteHelper.CapacidadObraConduccion,capacidad_obra_conduccion);
+            contentValues.put(sqliteHelper.NombreFotoConduccion,nombre_foto_conduccion);
+            contentValues.put(sqliteHelper.TipoObraDistribucion,tipo_obra_distribucion);
+            contentValues.put(sqliteHelper.CapacidadObraDistribucion,capacidad_obra_distribucion);
+            contentValues.put(sqliteHelper.NombreFotoDistribucion,nombre_foto_distribucion);
+            contentValues.put(sqliteHelper.TipoDiqueEmbalse,tipo_dique_embalse);
+            contentValues.put(sqliteHelper.LongitudDiqueEmbalse,longitud_dique_embalse);
+            contentValues.put(sqliteHelper.AlturaDiqueEmbalse,altura_dique_embalse);
+            contentValues.put(sqliteHelper.EspejoAguaEmbalse,espejo_agua_embalse);
+            contentValues.put(sqliteHelper.TipoTomaEmbalse,tipo_toma_embalse);
+            contentValues.put(sqliteHelper.CapacidadTomaEmbalse,capacidad_toma_embalse);
+            contentValues.put(sqliteHelper.TipoAliviaderoEmbalse,tipo_aliviadero_embalse);
+            contentValues.put(sqliteHelper.CapacidadAliviaderoEmbalse,capacidad_aliviadero_embalse);
+            contentValues.put(sqliteHelper.SuperficieAreaRiego,superficie_area_riego);
+            contentValues.put(sqliteHelper.CultivosAreaRiego,cultivos_area_riego);
+            contentValues.put(sqliteHelper.MetodosRiego,metodos_riego);
+            contentValues.put(sqliteHelper.AreaRegable,area_regable);
+            contentValues.put(sqliteHelper.AreaBajoRiego,area_bajo_riego);
+            contentValues.put(sqliteHelper.AreaRegada,area_regada);
+            contentValues.put(sqliteHelper.NombreFotoAreaRiego,nombre_foto_area_riego);
+            contentValues.put(sqliteHelper.Problemas,problemas);
+            contentValues.put(sqliteHelper.Observacion,observacion);
+            contentValues.put(sqliteHelper.Longitud,longitud);
+            contentValues.put(sqliteHelper.Latitud,latitud);
+            Log.i("SQLite", "Nuevo registro ");
+            return ( db.insert( sqliteHelper.N_TABLA2 , null, contentValues ) != -1 )?true:false;
         }
         else
             return false;
@@ -96,8 +138,28 @@ public class SQLite {
         return id;
     }
 
+    public int getUltimoID1()
+    {
+        int id = -1;
+        //query(String table,
+        //String[] columns,
+        //String selection, String[] selectionArgs, String groupBy, String having,
+        //String orderBy, String limit)
+        Cursor cursor = db.query( sqliteHelper.N_TABLA2 ,
+                new String[]{ sqliteHelper.ID_FILA },
+                null, null, null,null,
+                sqliteHelper.ID_FILA + " DESC ", "1");
+        if( cursor.moveToFirst() )
+        {
+            do
+            {
+                id = cursor.getInt(0);
+            } while ( cursor.moveToNext() );
+        }
+        return id;
+    }
+
     /**
-     * @param INT ID del registro a eliminar
      * @return BOOLEAN
      * */
 	/*public boolean borrar_registro( int id )
@@ -126,7 +188,49 @@ public class SQLite {
                         sqliteHelper.Longituddet,
                         sqliteHelper.TipoPavimento,
                         sqliteHelper.Problemas,
-                        sqliteHelper.Observacion
+                        sqliteHelper.Observacion,
+                        sqliteHelper.NombrePanoramica,
+                        sqliteHelper.NombreDetalle
+
+                },
+                null, null, null, null, null);
+    }
+
+
+    public Cursor getRegistros1() {
+        return db.query(sqliteHelper.N_TABLA2,
+                new String[]{
+                        sqliteHelper.ID_FILA,
+                        sqliteHelper.FuncionarioNombre,
+                        sqliteHelper.FechaCaptura,
+                        sqliteHelper.NombreSistemaRiego,
+                        sqliteHelper.TipoObraCaptacion,
+                        sqliteHelper.NombreFotoCaptacion,
+                        sqliteHelper.TipoObraConduccion,
+                        sqliteHelper.CapacidadObraConduccion,
+                        sqliteHelper.NombreFotoConduccion,
+                        sqliteHelper.TipoObraDistribucion,
+                        sqliteHelper.CapacidadObraDistribucion,
+                        sqliteHelper.NombreFotoDistribucion,
+                        sqliteHelper.TipoDiqueEmbalse,
+                        sqliteHelper.LongitudDiqueEmbalse,
+                        sqliteHelper.AlturaDiqueEmbalse,
+                        sqliteHelper.EspejoAguaEmbalse,
+                        sqliteHelper.TipoTomaEmbalse,
+                        sqliteHelper.CapacidadTomaEmbalse,
+                        sqliteHelper.TipoAliviaderoEmbalse,
+                        sqliteHelper.CapacidadAliviaderoEmbalse,
+                        sqliteHelper.SuperficieAreaRiego,
+                        sqliteHelper.CultivosAreaRiego,
+                        sqliteHelper.MetodosRiego,
+                        sqliteHelper.AreaRegable,
+                        sqliteHelper.AreaBajoRiego,
+                        sqliteHelper.AreaRegada,
+                        sqliteHelper.NombreFotoAreaRiego,
+                        sqliteHelper.Problemas,
+                        sqliteHelper.Observacion,
+                        sqliteHelper.Longitud,
+                        sqliteHelper.Latitud
 
                 },
                 null, null, null, null, null);
@@ -152,7 +256,51 @@ public class SQLite {
                         sqliteHelper.Longituddet,
                         sqliteHelper.TipoPavimento,
                         sqliteHelper.Problemas,
-                        sqliteHelper.Observacion
+                        sqliteHelper.Observacion,
+                        sqliteHelper.NombrePanoramica,
+                        sqliteHelper.NombreDetalle
+
+                },
+                sqliteHelper.ID_FILA + " = " + id ,
+                null, null, null, null);
+    }
+
+
+    public Cursor getRegistro1( int id )
+    {
+        return db.query( sqliteHelper.N_TABLA2 ,
+                new String[]{
+                        sqliteHelper.ID_FILA ,
+                        sqliteHelper.FuncionarioNombre,
+                        sqliteHelper.FechaCaptura,
+                        sqliteHelper.NombreSistemaRiego,
+                        sqliteHelper.TipoObraCaptacion,
+                        sqliteHelper.NombreFotoCaptacion,
+                        sqliteHelper.TipoObraConduccion,
+                        sqliteHelper.CapacidadObraConduccion,
+                        sqliteHelper.NombreFotoConduccion,
+                        sqliteHelper.TipoObraDistribucion,
+                        sqliteHelper.CapacidadObraDistribucion,
+                        sqliteHelper.NombreFotoDistribucion,
+                        sqliteHelper.TipoDiqueEmbalse,
+                        sqliteHelper.LongitudDiqueEmbalse,
+                        sqliteHelper.AlturaDiqueEmbalse,
+                        sqliteHelper.EspejoAguaEmbalse,
+                        sqliteHelper.TipoTomaEmbalse,
+                        sqliteHelper.CapacidadTomaEmbalse,
+                        sqliteHelper.TipoAliviaderoEmbalse,
+                        sqliteHelper.CapacidadAliviaderoEmbalse,
+                        sqliteHelper.SuperficieAreaRiego,
+                        sqliteHelper.CultivosAreaRiego,
+                        sqliteHelper.MetodosRiego,
+                        sqliteHelper.AreaRegable,
+                        sqliteHelper.AreaBajoRiego,
+                        sqliteHelper.AreaRegada,
+                        sqliteHelper.NombreFotoAreaRiego,
+                        sqliteHelper.Problemas,
+                        sqliteHelper.Observacion,
+                        sqliteHelper.Longitud,
+                        sqliteHelper.Latitud
 
                 },
                 sqliteHelper.ID_FILA + " = " + id ,
@@ -177,13 +325,15 @@ public class SQLite {
                 item += "Tipo Obra de Captacion: " + cursor.getString(3) + "\r\n";
                 item += "Punto de Origen: " + cursor.getString(4) + "\r\n";
                 item += "Punto de Destino: " + cursor.getString(5) + "\r\n";
-                item += "Latitud Foto Panoramica: " + cursor.getString(11) + "\r\n";
-                item += "Longitud Foto Panoramica: " + cursor.getString(12) + "\r\n";
-                item += "Latitud Foto Detalle: " + cursor.getString(13) + "\r\n";
-                item += "Longitud Foto Detalle: " + cursor.getString(14) + "\r\n";
-                item += "Tipo de Pavimento: " + cursor.getString(15) + "\r\n";
-                item += "Problemas Encontrados: " + cursor.getString(16) + "\r\n";
-                item += "Observaciones: " + cursor.getString(17) + "";
+                item += "Latitud Foto Panoramica: " + cursor.getString(6) + "\r\n";
+                item += "Longitud Foto Panoramica: " + cursor.getString(7) + "\r\n";
+                item += "Latitud Foto Detalle: " + cursor.getString(8) + "\r\n";
+                item += "Longitud Foto Detalle: " + cursor.getString(9) + "\r\n";
+                item += "Tipo de Pavimento: " + cursor.getString(10) + "\r\n";
+                item += "Problemas Encontrados: " + cursor.getString(11) + "\r\n";
+                item += "Observaciones: " + cursor.getString(12) + "\r\n";
+                item += "Nombre Panoramica: " + cursor.getString(13) + "\r\n";
+                item += "Nombre Detalle: " + cursor.getString(14) + "";
                 listData.add( item );
                 item="";
 

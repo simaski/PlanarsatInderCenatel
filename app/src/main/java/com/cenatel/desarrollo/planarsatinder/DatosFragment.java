@@ -109,6 +109,7 @@ public class DatosFragment extends Fragment implements LocationListener {
                         //Toast.makeText(getActivity(), "Opcion no disponible", Toast.LENGTH_SHORT).show();
                         if (et_inspector.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Nombre de Inspector Vacio", Toast.LENGTH_SHORT).show();
+                            spi_TipoObra.setSelection(0);
                         } else {
                             st_et_inspectorR = et_inspector.getText().toString();
                             st_et_fechaCapturaR = et_fechaCaptura.getText().toString();
