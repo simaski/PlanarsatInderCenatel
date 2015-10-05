@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cenatel.desarrollo.planarsatinderbd.SQLite;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +46,19 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
 
     //****************EditText**************************//
     public EditText et_tipoObraCaptacion;
+    public EditText et_nombreSistemaRiego;
+    public EditText et_capacidadObraConduccion;
+    public EditText et_capacidadObraDistribucion;
+    public EditText et_profundidadPozo;
+    public EditText et_diametroPozo;
+    public EditText et_caudalPozo;
+    public EditText et_superficieAreaRiegoPozo;
+    public EditText et_cultivosAreaRiegoPozo;
+    public EditText et_areaRegablePozo;
+    public EditText et_areaBajoRiegoPozo;
+    public EditText et_areaRegadaPozo;
+    public EditText et_problemas;
+    public EditText et_observaciones;
 
     //****************TextView**************************//
     public TextView tv_Latitud;
@@ -54,6 +70,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
     public Button btCapturarConduccion;
     public Button btCapturarDistribucion;
     public Button btCapturarAreaRiego;
+    public Button bt_Enviar;
 
     //****************ImageView**************************//
     public ImageView imv_captacion;
@@ -62,15 +79,34 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
     public ImageView imv_areaderiego;
 
     //****************String**************************//
-    public String st_spi_tipoObraDistribucionR;
-    public String st_spi_tipoObraConduccionR;
-    public String st_spi_metodosriegoR;
-    public String st_spi_calidadaguaR;
-    public String st_spi_tipobombaR;
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
-    public String st_spi_tipoObraCaptacionR;
-    public String st_spi_abatimientoR;
+    public String st_et_nombreSistemaRiegoR;
+    public String st_et_tipoObraCaptacionR;
+    public String st_tv_tipoObraCaptacionR;
+    public String st_spi_tipoObraConduccionR;
+    public String st_et_capacidadObraConduccionR;
+    public String st_tv_tipoObraConduccionR;
+    public String st_spi_tipoObraDistribucionR;
+    public String st_et_capacidadObraDistribucionR;
+    public String st_tv_tipoObraDistribucionR;
+    public String st_et_profundidadPozoR;
+    public String st_et_diametroPozoR;
+    public String st_et_caudalPozoR;
+    public String st_spi_calidadAguaPozoR;
+    public String st_spi_abatimientoPozoR;
+    public String st_spi_tipobombaPozoR;
+    public String st_et_superficieAreaRiegoPozoR;
+    public String st_et_cultivosAreaRiegoPozoR;
+    public String st_spi_metodosriegoR;
+    public String st_et_areaRegablePozoR;
+    public String st_et_areaBajoRiegoPozoR;
+    public String st_et_areaRegadaPozoR;
+    public String st_tv_areaRiegoPozoR;
+    public String st_et_problemasR;
+    public String st_et_observacionesR;
+    public String st_tv_longitudR;
+    public String st_tv_latitudR;
     private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
     private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
     private String st_imageFileName;
@@ -89,6 +125,10 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
     //****************Uri**************************//
     private Uri imageFileUri; // Ver proveedores de contenidos
 
+    //****************Sqlite**************************//
+    private SQLite sqlite;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegopozo, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Pozo");
@@ -96,10 +136,24 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
 
         st_et_inspectorR = getArguments().getString("Key");
         st_et_fechaCapturaR = getArguments().getString("Key2");
-        st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
+        st_et_tipoObraCaptacionR = getArguments().getString("Key3");
 
         et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);
+        et_tipoObraCaptacion.setText(st_et_tipoObraCaptacionR);
+
+        et_nombreSistemaRiego = (EditText) v.findViewById(R.id.et_nombreSistema);
+        et_capacidadObraConduccion = (EditText) v.findViewById(R.id.et_capacidadObraConduccion);
+        et_capacidadObraDistribucion = (EditText) v.findViewById(R.id.et_capacidadObraDistribucion);
+        et_profundidadPozo = (EditText) v.findViewById(R.id.et_profundidadpozo);
+        et_diametroPozo = (EditText) v.findViewById(R.id.et_diametropozo);
+        et_caudalPozo = (EditText) v.findViewById(R.id.et_caudalpozo);
+        et_superficieAreaRiegoPozo = (EditText) v.findViewById(R.id.et_superficieriego);
+        et_cultivosAreaRiegoPozo = (EditText) v.findViewById(R.id.et_cultivos);
+        et_areaRegablePozo = (EditText) v.findViewById(R.id.et_arearegable);
+        et_areaBajoRiegoPozo = (EditText) v.findViewById(R.id.et_areabajoriego);
+        et_areaRegadaPozo = (EditText) v.findViewById(R.id.et_arearegada);
+        et_problemas = (EditText) v.findViewById(R.id.et_problemas);
+        et_observaciones = (EditText) v.findViewById(R.id.et_observaciones);
 
         spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);
@@ -138,7 +192,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_calidadagua.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                st_spi_calidadaguaR = spi_calidadagua.getSelectedItem().toString();
+                st_spi_calidadAguaPozoR = spi_calidadagua.getSelectedItem().toString();
             }
 
             @Override
@@ -168,7 +222,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_abatimiento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                st_spi_abatimientoR = spi_abatimiento.getSelectedItem().toString();
+                st_spi_abatimientoPozoR = spi_abatimiento.getSelectedItem().toString();
             }
 
             @Override
@@ -183,7 +237,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         spi_tipobomba.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                st_spi_tipobombaR = spi_tipobomba.getSelectedItem().toString();
+                st_spi_tipobombaPozoR = spi_tipobomba.getSelectedItem().toString();
             }
 
             @Override
@@ -294,6 +348,59 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
         });
 
 
+        bt_Enviar = (Button) v.findViewById(R.id.bt_enviar);
+        bt_Enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*if (et_nombreSistemaRiego.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (et_capacidadObraDistribucion.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (imv_captacion.getDrawable() == null) {
+                    CamposVacios();
+                } else if (imv_detalle.getDrawable() == null) {
+                    CamposVacios();
+                } else {*/
+
+                st_et_nombreSistemaRiegoR = et_nombreSistemaRiego.getText().toString();
+                st_et_capacidadObraConduccionR = et_capacidadObraConduccion.getText().toString();
+                st_et_capacidadObraDistribucionR = et_capacidadObraDistribucion.getText().toString();
+                st_et_profundidadPozoR = et_profundidadPozo.getText().toString();
+                st_et_diametroPozoR = et_diametroPozo.getText().toString();
+                st_et_caudalPozoR = et_caudalPozo.getText().toString();
+                st_et_superficieAreaRiegoPozoR = et_superficieAreaRiegoPozo.getText().toString();
+                st_et_cultivosAreaRiegoPozoR = et_cultivosAreaRiegoPozo.getText().toString();
+                st_et_areaRegablePozoR = et_areaRegablePozo.getText().toString();
+                st_et_areaBajoRiegoPozoR = et_areaBajoRiegoPozo.getText().toString();
+                st_et_areaRegadaPozoR = et_areaRegadaPozo.getText().toString();
+                st_et_problemasR = et_problemas.getText().toString();
+                st_et_observacionesR = et_observaciones.getText().toString();
+                st_tv_longitudR = tv_Longitud.getText().toString();
+                st_tv_latitudR = tv_Latitud.getText().toString();
+
+                Log.i("Aqui", "DDDDDDDDD " + st_et_inspectorR);
+
+                sqlite = new SQLite(getActivity());
+                sqlite.abrir();
+                sqlite.addRegistroPozo(st_et_inspectorR, st_et_fechaCapturaR, st_et_nombreSistemaRiegoR, st_et_tipoObraCaptacionR, st_tv_tipoObraCaptacionR, st_spi_tipoObraConduccionR,
+                        st_et_capacidadObraConduccionR, st_tv_tipoObraConduccionR, st_spi_tipoObraDistribucionR, st_et_capacidadObraDistribucionR, st_tv_tipoObraDistribucionR, st_et_profundidadPozoR,
+                        st_et_diametroPozoR, st_et_caudalPozoR, st_spi_calidadAguaPozoR, st_spi_abatimientoPozoR, st_spi_tipobombaPozoR, st_et_superficieAreaRiegoPozoR,
+                        st_et_cultivosAreaRiegoPozoR, st_spi_metodosriegoR, st_et_areaRegablePozoR, st_et_areaBajoRiegoPozoR, st_et_areaRegadaPozoR, st_tv_areaRiegoPozoR, st_et_problemasR, st_et_observacionesR, st_tv_longitudR, st_tv_latitudR);
+                sqlite.cerrar();
+
+
+                    /*et_puntoOrigen.setText("");
+                    et_puntoDestino.setText("");
+                    et_problemas.setText("");
+                    et_observaciones.setText("");
+                    imv_panoramica.setImageDrawable(null);
+                    imv_detalle.setImageDrawable(null);
+
+                }*/
+            }
+        });
+
+
         return v;
 
 
@@ -334,6 +441,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraCaptacionR = st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -352,6 +460,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraConduccionR = st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -370,6 +479,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraDistribucionR = st_mCurrentPhotoPath + st_imageFileName + 2 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -388,6 +498,7 @@ public class SistemaDeRiegoPozo extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_areaRiegoPozoR = st_mCurrentPhotoPath + st_imageFileName + 3 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
