@@ -88,4 +88,8 @@
         <item>Goteo</item>
         <item>Gravedad</item>
     </string-array>
+
+    <string-array name="array_tipoDereivacion">
+        <item>Seleccione una opción</item>
+    </string-array>
 </resources>

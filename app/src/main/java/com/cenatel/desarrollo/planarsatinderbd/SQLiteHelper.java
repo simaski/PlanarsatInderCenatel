@@ -59,6 +59,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String CapacidadAliviaderoEmbalse = "capacidad_aliviadero_embalse";
     //**********FIN BASE DE DATOS EMBALSE**************************************//
 
+    //**********BASE DE DATOS DERIVACION**************************************//
+    public static final String N_TABLA3 = "Tabla_planarsat_derivacion";
+    public static final String TipoDerivacion = "tipo_derivacion";
+    public static final String CapacidadDerivacion = "capacidad_derivacion";
+    public static final String CapacidadDesarenador = "capacidad_desarenador";
+    //**********FIN BASE DE DATOS EMBALSE**************************************//
+
 
 
     private final String sql = "CREATE TABLE " + N_TABLA +
@@ -113,6 +120,35 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             Longitud + " TEXT NOT NULL, " +
             Latitud + " TEXT NOT NULL" + " )";
 
+    private final String sql2 = "CREATE TABLE " + N_TABLA3 +
+            "(" +
+            ID_FILA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            FuncionarioNombre + " TEXT NOT NULL, " +
+            FechaCaptura + " TEXT NOT NULL, " +
+            NombreSistemaRiego + " TEXT NOT NULL, " +
+            TipoObraCaptacion + " TEXT NOT NULL, " +
+            NombreFotoCaptacion + " TEXT NOT NULL, " +
+            TipoObraConduccion + " TEXT NOT NULL, " +
+            CapacidadObraConduccion + " TEXT NOT NULL, " +
+            NombreFotoConduccion + " TEXT NOT NULL, " +
+            TipoObraDistribucion + " TEXT NOT NULL, " +
+            CapacidadObraDistribucion + " TEXT NOT NULL, " +
+            NombreFotoDistribucion + " TEXT NOT NULL, " +
+            TipoDerivacion + " TEXT NOT NULL, " +
+            CapacidadDerivacion + " TEXT NOT NULL, " +
+            CapacidadDesarenador + " TEXT NOT NULL, " +
+            SuperficieAreaRiego + " TEXT NOT NULL, " +
+            CultivosAreaRiego + " TEXT NOT NULL, " +
+            MetodosRiego + " TEXT NOT NULL, " +
+            AreaRegable + " TEXT NOT NULL, " +
+            AreaBajoRiego + " TEXT NOT NULL, " +
+            AreaRegada + " TEXT NOT NULL, " +
+            NombreFotoAreaRiego + " TEXT NOT NULL, " +
+            Problemas + " TEXT NOT NULL, " +
+            Observacion + " TEXT NOT NULL, " +
+            Longitud + " TEXT NOT NULL, " +
+            Latitud + " TEXT NOT NULL" + " )";
+
 
 
     /**
@@ -126,6 +162,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL( sql );
         db.execSQL( sql1 );
+        db.execSQL( sql2 );
 
     }
 
@@ -136,9 +173,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             //elimina tabla
             db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA );
             db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA2 );
+            db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA3 );
             //y luego creamos la nueva tabla
             db.execSQL( sql );
             db.execSQL( sql1 );
+            db.execSQL( sql2 );
         }
     }
 

@@ -1,6 +1,7 @@
 package com.cenatel.desarrollo.planarsatinder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -336,11 +338,11 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         bt_Enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (et_puntoOrigen.getText().toString().equals("")) {
+                /*if (et_nombreSistemaRiego.getText().toString().equals("")) {
                     CamposVacios();
-                } else if (et_puntoDestino.getText().toString().equals("")) {
+                } else if (et_capacidadObraDistribucion.getText().toString().equals("")) {
                     CamposVacios();
-                } else if (imv_panoramica.getDrawable() == null) {
+                } else if (imv_captacion.getDrawable() == null) {
                     CamposVacios();
                 } else if (imv_detalle.getDrawable() == null) {
                     CamposVacios();
@@ -378,7 +380,7 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
                     sqlite.cerrar();
 
 
-                   /* et_puntoOrigen.setText("");
+                    /*et_puntoOrigen.setText("");
                     et_puntoDestino.setText("");
                     et_problemas.setText("");
                     et_observaciones.setText("");
@@ -495,6 +497,24 @@ public class SistemaDeRiegoEmbalse extends Fragment implements LocationListener 
         }
 
     }//---------------------------FIN Funciones IMAGEN-------------------------------------------------------------------
+
+    public void CamposVacios() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        // Setting Dialog Title
+        alertDialog.setTitle("Alerta!!!");
+        // Setting Dialog Message
+        alertDialog.setMessage("Uno o varios campos obligatorios no han sido llenados. O no ha capturado las Fotografias");
+        // Setting Icon to Dialog
+        //alertDialog.setIcon(R.drawable.delete);
+        // On pressing Settings button
+        alertDialog.setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        // Showing Alert Message
+        alertDialog.show();
+    }
 
     @Override
     public void onLocationChanged(Location location) {
