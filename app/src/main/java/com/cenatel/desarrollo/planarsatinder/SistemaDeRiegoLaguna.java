@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cenatel.desarrollo.planarsatinderbd.SQLite;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,9 +43,24 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
     public Spinner spi_tipolaguna;
 
     //****************EditText**************************//
+    public EditText et_nombreSistemaRiego;
     public EditText et_tipoObraCaptacion;
+    public EditText et_capacidadObraConduccion;
+    public EditText et_capacidadObraDistribucion;
+    public EditText et_capacidadDerivacion;
+    public EditText et_capacidadLaguna;
+    public EditText et_espejoAguaLaguna;
     public EditText et_longituddiquelaguna;
     public EditText et_alturadiquelaguna;
+    public EditText et_superficieAreaRiegoLaguna;
+    public EditText et_cultivosAreaRiegoLaguna;
+    public EditText et_areaRegableLaguna;
+    public EditText et_areaBajoRiegoLaguna;
+    public EditText et_areaRegadaLaguna;
+    public EditText et_problemas;
+    public EditText et_observaciones;
+
+
 
     //****************TextView**************************//
     public TextView tv_Latitud;
@@ -56,6 +74,7 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
     public Button btCapturarConduccion;
     public Button btCapturarDistribucion;
     public Button btCapturarAreaRiego;
+    public Button bt_Enviar;
 
     //****************ImageView**************************//
     public ImageView imv_captacion;
@@ -64,13 +83,33 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
     public ImageView imv_areaderiego;
 
     //****************String**************************//
-    public String st_spi_tipoObraDistribucionR;
-    public String st_spi_tipoObraConduccionR;
-    public String st_spi_metodosriegoR;
-    public String st_spi_tipolagunaR;
     public String st_et_inspectorR;
     public String st_et_fechaCapturaR;
-    public String st_spi_tipoObraCaptacionR;
+    public String st_et_nombreSistemaRiegoR;
+    public String st_et_tipoObraCaptacionR;
+    public String st_tv_tipoObraCaptacionR;
+    public String st_spi_tipoObraConduccionR;
+    public String st_et_capacidadObraConduccionR;
+    public String st_tv_tipoObraConduccionR;
+    public String st_spi_tipoObraDistribucionR;
+    public String st_et_capacidadObraDistribucionR;
+    public String st_tv_tipoObraDistribucionR;
+    public String st_et_capacidadLagunaR;
+    public String st_et_espejoAguaLagunaR;
+    public String st_spi_tipoLagunaR;
+    public String st_et_alturaDiqueLagunaR;
+    public String st_et_longitudDiqueLagunaR;
+    public String st_et_superficieAreaRiegoLagunaR;
+    public String st_et_cultivosAreaRiegoLagunaR;
+    public String st_spi_metodosriegoR;
+    public String st_et_areaRegableLagunaR;
+    public String st_et_areaBajoRiegoLagunaR;
+    public String st_et_areaRegadaLagunaR;
+    public String st_tv_areaRiegoLagunaR;
+    public String st_et_problemasR;
+    public String st_et_observacionesR;
+    public String st_tv_longitudR;
+    public String st_tv_latitudR;
     private static final String st_JPEG_FILE_PREFIX = "IMG_"; // prefijo imagenes
     private static final String st_JPEG_FILE_SUFFIX = ".jpg"; // sufijo para jpeg
     private String st_mCurrentPhotoPath; // String para guardar el camino hacia la foto
@@ -89,6 +128,10 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
     //****************Uri**************************//
     private Uri imageFileUri; // Ver proveedores de contenidos
 
+    //****************Sqlite**************************//
+    private SQLite sqlite;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sistemariegolaguna, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Sistema de Riego: Laguna");
@@ -96,16 +139,31 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
 
         st_et_inspectorR = getArguments().getString("Key");
         st_et_fechaCapturaR = getArguments().getString("Key2");
-        st_spi_tipoObraCaptacionR = getArguments().getString("Key3");
+        st_et_tipoObraCaptacionR = getArguments().getString("Key3");
 
         et_tipoObraCaptacion = (EditText) v.findViewById(R.id.et_tipoObracaptacion);
-        et_tipoObraCaptacion.setText(st_spi_tipoObraCaptacionR);
+        et_tipoObraCaptacion.setText(st_et_tipoObraCaptacionR);
+
+        et_nombreSistemaRiego = (EditText) v.findViewById(R.id.et_nombreSistema);
+        et_capacidadObraConduccion = (EditText) v.findViewById(R.id.et_capacidadObraConduccion);
+        et_capacidadObraDistribucion = (EditText) v.findViewById(R.id.et_capacidadObraDistribucion);
+        et_capacidadDerivacion = (EditText) v.findViewById(R.id.et_capacidadderivacion);
+        et_capacidadLaguna = (EditText) v.findViewById(R.id.et_capacidadlaguna);
+        et_espejoAguaLaguna = (EditText) v.findViewById(R.id.et_espejodeagualaguna);
+        et_longituddiquelaguna = (EditText) v.findViewById(R.id.et_longituddiquelaguna);
+        et_alturadiquelaguna = (EditText) v.findViewById(R.id.et_alturadiquelaguna);
+        et_superficieAreaRiegoLaguna = (EditText) v.findViewById(R.id.et_superficieriego);
+        et_cultivosAreaRiegoLaguna = (EditText) v.findViewById(R.id.et_cultivos);
+        et_areaRegableLaguna = (EditText) v.findViewById(R.id.et_arearegable);
+        et_areaBajoRiegoLaguna = (EditText) v.findViewById(R.id.et_areabajoriego);
+        et_areaRegadaLaguna = (EditText) v.findViewById(R.id.et_arearegada);
+        et_problemas = (EditText) v.findViewById(R.id.et_problemas);
+        et_observaciones = (EditText) v.findViewById(R.id.et_observaciones);
 
 
         tv_diquelaguna = (TextView) v.findViewById(R.id.tv_diquelaguna);
         tv_diquelaguna2 = (TextView) v.findViewById(R.id.tv_diquelaguna2);
-        et_longituddiquelaguna = (EditText) v.findViewById(R.id.et_longituddiquelaguna);
-        et_alturadiquelaguna = (EditText) v.findViewById(R.id.et_alturadiquelaguna);
+
 
         spi_tipoObraConduccion = (Spinner) v.findViewById(R.id.spi_tipoObraconduccion);
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getActivity(), R.array.array_tipoObraConduccion, android.R.layout.simple_spinner_item);
@@ -166,21 +224,21 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
                         tv_diquelaguna2.setVisibility(View.GONE);
                         et_alturadiquelaguna.setVisibility(View.GONE);
                         et_longituddiquelaguna.setVisibility(View.GONE);
-                        st_spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        st_spi_tipoLagunaR = spi_tipolaguna.getSelectedItem().toString();
                         break;
                     case 1:
                         tv_diquelaguna.setVisibility(View.VISIBLE);
                         tv_diquelaguna2.setVisibility(View.VISIBLE);
                         et_longituddiquelaguna.setVisibility(View.VISIBLE);
                         et_alturadiquelaguna.setVisibility(View.GONE);
-                        st_spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        st_spi_tipoLagunaR = spi_tipolaguna.getSelectedItem().toString();
                         break;
                     case 2:
                         tv_diquelaguna.setVisibility(View.VISIBLE);
                         tv_diquelaguna2.setVisibility(View.VISIBLE);
                         et_alturadiquelaguna.setVisibility(View.VISIBLE);
                         et_longituddiquelaguna.setVisibility(View.GONE);
-                        st_spi_tipolagunaR = spi_tipolaguna.getSelectedItem().toString();
+                        st_spi_tipoLagunaR = spi_tipolaguna.getSelectedItem().toString();
                         break;
                 }
             }
@@ -292,6 +350,61 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
             }
         });
 
+
+        bt_Enviar = (Button) v.findViewById(R.id.bt_enviar);
+        bt_Enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*if (et_nombreSistemaRiego.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (et_capacidadObraDistribucion.getText().toString().equals("")) {
+                    CamposVacios();
+                } else if (imv_captacion.getDrawable() == null) {
+                    CamposVacios();
+                } else if (imv_detalle.getDrawable() == null) {
+                    CamposVacios();
+                } else {*/
+                Toast.makeText(getActivity(), "No ha posicionado aun. Por favor espere!", Toast.LENGTH_SHORT).show();
+
+                st_et_nombreSistemaRiegoR = et_nombreSistemaRiego.getText().toString();
+                st_et_capacidadObraConduccionR = et_capacidadObraConduccion.getText().toString();
+                st_et_capacidadObraDistribucionR = et_capacidadObraDistribucion.getText().toString();
+                st_et_capacidadLagunaR = et_capacidadLaguna.getText().toString();
+                st_et_espejoAguaLagunaR = et_espejoAguaLaguna.getText().toString();
+                st_et_alturaDiqueLagunaR = et_alturadiquelaguna.getText().toString();
+                st_et_longitudDiqueLagunaR = et_longituddiquelaguna.getText().toString();
+                st_et_superficieAreaRiegoLagunaR = et_superficieAreaRiegoLaguna.getText().toString();
+                st_et_cultivosAreaRiegoLagunaR = et_cultivosAreaRiegoLaguna.getText().toString();
+                st_et_areaRegableLagunaR = et_areaRegableLaguna.getText().toString();
+                st_et_areaBajoRiegoLagunaR = et_areaBajoRiegoLaguna.getText().toString();
+                st_et_areaRegadaLagunaR = et_areaRegadaLaguna.getText().toString();
+                st_et_problemasR = et_problemas.getText().toString();
+                st_et_observacionesR = et_observaciones.getText().toString();
+                st_tv_longitudR = tv_Longitud.getText().toString();
+                st_tv_latitudR = tv_Latitud.getText().toString();
+
+                Log.i("Aqui", "DDDDDDDDD " + st_et_inspectorR);
+
+                sqlite = new SQLite(getActivity());
+                sqlite.abrir();
+                sqlite.addRegistroLaguna(st_et_inspectorR, st_et_fechaCapturaR, st_et_nombreSistemaRiegoR, st_et_tipoObraCaptacionR, st_tv_tipoObraCaptacionR, st_spi_tipoObraConduccionR,
+                        st_et_capacidadObraConduccionR, st_tv_tipoObraConduccionR, st_spi_tipoObraDistribucionR, st_et_capacidadObraDistribucionR, st_tv_tipoObraDistribucionR, st_et_capacidadLagunaR,
+                        st_et_espejoAguaLagunaR, st_spi_tipoLagunaR, st_et_alturaDiqueLagunaR, st_et_longitudDiqueLagunaR, st_et_superficieAreaRiegoLagunaR, st_et_cultivosAreaRiegoLagunaR, st_spi_metodosriegoR, st_et_areaRegableLagunaR,
+                        st_et_areaBajoRiegoLagunaR, st_et_areaRegadaLagunaR, st_tv_areaRiegoLagunaR, st_et_problemasR, st_et_observacionesR, st_tv_longitudR, st_tv_latitudR);
+                sqlite.cerrar();
+
+
+                    /*et_puntoOrigen.setText("");
+                    et_puntoDestino.setText("");
+                    et_problemas.setText("");
+                    et_observaciones.setText("");
+                    imv_panoramica.setImageDrawable(null);
+                    imv_detalle.setImageDrawable(null);
+
+                }*/
+            }
+        });
+
         return v;
     }
 
@@ -329,6 +442,7 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraCaptacionR = st_mCurrentPhotoPath + st_imageFileName + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -347,6 +461,7 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraConduccionR = st_mCurrentPhotoPath + st_imageFileName + 1 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -365,6 +480,7 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_tipoObraDistribucionR = st_mCurrentPhotoPath + st_imageFileName + 2 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }
@@ -383,6 +499,7 @@ public class SistemaDeRiegoLaguna extends Fragment implements LocationListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    st_tv_areaRiegoLagunaR = st_mCurrentPhotoPath + st_imageFileName + 3 + st_JPEG_FILE_SUFFIX;
                     //latitudpan = tv_Latitud.getText().toString();
                     //longitudpan = tv_Longitud.getText().toString();
                 }

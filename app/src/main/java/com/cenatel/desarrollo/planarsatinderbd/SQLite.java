@@ -154,6 +154,50 @@ public class SQLite {
             return false;
     }
 
+    public boolean addRegistroLaguna( String funcionario_nombre,String fecha_captura,String nombre_sistema_riego, String tipo_obra_captacion,String nombre_foto_captacion,
+                                          String tipo_obra_conduccion,String capacidad_obra_conduccion,String nombre_foto_conduccion, String tipo_obra_distribucion,
+                                          String capacidad_obra_distribucion, String nombre_foto_distribucion, String capacidad_laguna, String espejo_agua_laguna,
+                                          String tipo_laguna, String altura_dique_laguna, String longitud_dique_laguna, String superficie_area_riego, String cultivos_area_riego, String metodos_riego, String area_regable,
+                                          String area_bajo_riego, String area_regada, String nombre_foto_area_riego, String observacion, String problemas,String longitud,String latitud)
+    {
+        if( funcionario_nombre.length()> 0 )
+        {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(sqliteHelper.FuncionarioNombre,funcionario_nombre);
+            contentValues.put(sqliteHelper.FechaCaptura,fecha_captura);
+            contentValues.put(sqliteHelper.NombreSistemaRiego,nombre_sistema_riego);
+            contentValues.put(sqliteHelper.TipoObraCaptacion,tipo_obra_captacion);
+            contentValues.put(sqliteHelper.NombreFotoCaptacion,nombre_foto_captacion);
+            contentValues.put(sqliteHelper.TipoObraConduccion,tipo_obra_conduccion);
+            contentValues.put(sqliteHelper.CapacidadObraConduccion,capacidad_obra_conduccion);
+            contentValues.put(sqliteHelper.NombreFotoConduccion,nombre_foto_conduccion);
+            contentValues.put(sqliteHelper.TipoObraDistribucion,tipo_obra_distribucion);
+            contentValues.put(sqliteHelper.CapacidadObraDistribucion,capacidad_obra_distribucion);
+            contentValues.put(sqliteHelper.NombreFotoDistribucion,nombre_foto_distribucion);
+            contentValues.put(sqliteHelper.CapacidadLaguna,capacidad_laguna);
+            contentValues.put(sqliteHelper.EspejoAguaLaguna,espejo_agua_laguna);
+            contentValues.put(sqliteHelper.TipoLaguna,tipo_laguna);
+            contentValues.put(sqliteHelper.AlturaDiqueLaguna,altura_dique_laguna);
+            contentValues.put(sqliteHelper.LongitudDiqueLaguna,longitud_dique_laguna);
+            contentValues.put(sqliteHelper.SuperficieAreaRiego,superficie_area_riego);
+            contentValues.put(sqliteHelper.CultivosAreaRiego,cultivos_area_riego);
+            contentValues.put(sqliteHelper.MetodosRiego,metodos_riego);
+            contentValues.put(sqliteHelper.AreaRegable,area_regable);
+            contentValues.put(sqliteHelper.AreaBajoRiego,area_bajo_riego);
+            contentValues.put(sqliteHelper.AreaRegada,area_regada);
+            contentValues.put(sqliteHelper.NombreFotoAreaRiego,nombre_foto_area_riego);
+            contentValues.put(sqliteHelper.Problemas,problemas);
+            contentValues.put(sqliteHelper.Observacion,observacion);
+            contentValues.put(sqliteHelper.Longitud,longitud);
+            contentValues.put(sqliteHelper.Latitud,latitud);
+            Log.i("SQLite", "Nuevo registro ");
+            return ( db.insert( sqliteHelper.N_TABLA4 , null, contentValues ) != -1 )?true:false;
+        }
+        else
+            return false;
+    }
+
+
 
     /**
      * Metodo que retorna el ID del ultimo universitario registrado
@@ -209,6 +253,27 @@ public class SQLite {
         //String selection, String[] selectionArgs, String groupBy, String having,
         //String orderBy, String limit)
         Cursor cursor = db.query( sqliteHelper.N_TABLA3 ,
+                new String[]{ sqliteHelper.ID_FILA },
+                null, null, null,null,
+                sqliteHelper.ID_FILA + " DESC ", "1");
+        if( cursor.moveToFirst() )
+        {
+            do
+            {
+                id = cursor.getInt(0);
+            } while ( cursor.moveToNext() );
+        }
+        return id;
+    }
+
+    public int getUltimoID3()
+    {
+        int id = -1;
+        //query(String table,
+        //String[] columns,
+        //String selection, String[] selectionArgs, String groupBy, String having,
+        //String orderBy, String limit)
+        Cursor cursor = db.query( sqliteHelper.N_TABLA4 ,
                 new String[]{ sqliteHelper.ID_FILA },
                 null, null, null,null,
                 sqliteHelper.ID_FILA + " DESC ", "1");
@@ -335,6 +400,43 @@ public class SQLite {
     }
 
 
+    public Cursor getRegistros3() {
+        return db.query(sqliteHelper.N_TABLA4,
+                new String[]{
+                        sqliteHelper.ID_FILA,
+                        sqliteHelper.FuncionarioNombre,
+                        sqliteHelper.FechaCaptura,
+                        sqliteHelper.NombreSistemaRiego,
+                        sqliteHelper.TipoObraCaptacion,
+                        sqliteHelper.NombreFotoCaptacion,
+                        sqliteHelper.TipoObraConduccion,
+                        sqliteHelper.CapacidadObraConduccion,
+                        sqliteHelper.NombreFotoConduccion,
+                        sqliteHelper.TipoObraDistribucion,
+                        sqliteHelper.CapacidadObraDistribucion,
+                        sqliteHelper.NombreFotoDistribucion,
+                        sqliteHelper.CapacidadLaguna,
+                        sqliteHelper.EspejoAguaLaguna,
+                        sqliteHelper.TipoLaguna,
+                        sqliteHelper.AlturaDiqueLaguna,
+                        sqliteHelper.LongitudDiqueLaguna,
+                        sqliteHelper.SuperficieAreaRiego,
+                        sqliteHelper.CultivosAreaRiego,
+                        sqliteHelper.MetodosRiego,
+                        sqliteHelper.AreaRegable,
+                        sqliteHelper.AreaBajoRiego,
+                        sqliteHelper.AreaRegada,
+                        sqliteHelper.NombreFotoAreaRiego,
+                        sqliteHelper.Problemas,
+                        sqliteHelper.Observacion,
+                        sqliteHelper.Longitud,
+                        sqliteHelper.Latitud
+
+                },
+                null, null, null, null, null);
+    }
+
+
     /**
      * Obtiene un registro
      * */
@@ -424,6 +526,45 @@ public class SQLite {
                         sqliteHelper.TipoDerivacion,
                         sqliteHelper.CapacidadDerivacion,
                         sqliteHelper.CapacidadDesarenador,
+                        sqliteHelper.SuperficieAreaRiego,
+                        sqliteHelper.CultivosAreaRiego,
+                        sqliteHelper.MetodosRiego,
+                        sqliteHelper.AreaRegable,
+                        sqliteHelper.AreaBajoRiego,
+                        sqliteHelper.AreaRegada,
+                        sqliteHelper.NombreFotoAreaRiego,
+                        sqliteHelper.Problemas,
+                        sqliteHelper.Observacion,
+                        sqliteHelper.Longitud,
+                        sqliteHelper.Latitud
+
+                },
+                sqliteHelper.ID_FILA + " = " + id ,
+                null, null, null, null);
+    }
+
+
+    public Cursor getRegistro3( int id )
+    {
+        return db.query( sqliteHelper.N_TABLA3 ,
+                new String[]{
+                        sqliteHelper.ID_FILA ,
+                        sqliteHelper.FuncionarioNombre,
+                        sqliteHelper.FechaCaptura,
+                        sqliteHelper.NombreSistemaRiego,
+                        sqliteHelper.TipoObraCaptacion,
+                        sqliteHelper.NombreFotoCaptacion,
+                        sqliteHelper.TipoObraConduccion,
+                        sqliteHelper.CapacidadObraConduccion,
+                        sqliteHelper.NombreFotoConduccion,
+                        sqliteHelper.TipoObraDistribucion,
+                        sqliteHelper.CapacidadObraDistribucion,
+                        sqliteHelper.NombreFotoDistribucion,
+                        sqliteHelper.CapacidadLaguna,
+                        sqliteHelper.EspejoAguaLaguna,
+                        sqliteHelper.TipoLaguna,
+                        sqliteHelper.AlturaDiqueLaguna,
+                        sqliteHelper.LongitudDiqueLaguna,
                         sqliteHelper.SuperficieAreaRiego,
                         sqliteHelper.CultivosAreaRiego,
                         sqliteHelper.MetodosRiego,

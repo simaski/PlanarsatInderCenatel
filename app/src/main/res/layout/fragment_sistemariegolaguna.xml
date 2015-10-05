@@ -358,7 +358,7 @@
                 android:layout_below="@id/tv_espejodeagualaguna">
 
                 <EditText
-                    android:id="@+id/et_capacidaddesarenador"
+                    android:id="@+id/et_espejodeagualaguna"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"

@@ -66,6 +66,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String CapacidadDesarenador = "capacidad_desarenador";
     //**********FIN BASE DE DATOS EMBALSE**************************************//
 
+    //**********BASE DE DATOS DERIVACION**************************************//
+    public static final String N_TABLA4 = "Tabla_planarsat_laguna";
+    public static final String CapacidadLaguna = "capacidad_laguna";
+    public static final String EspejoAguaLaguna = "espejo_agua_laguna";
+    public static final String TipoLaguna = "tipo_laguna";
+    public static final String AlturaDiqueLaguna = "altura_dique_laguna";
+    public static final String LongitudDiqueLaguna = "Longitud_dique_laguna";
+    //**********FIN BASE DE DATOS EMBALSE**************************************//
+
 
 
     private final String sql = "CREATE TABLE " + N_TABLA +
@@ -149,6 +158,37 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             Longitud + " TEXT NOT NULL, " +
             Latitud + " TEXT NOT NULL" + " )";
 
+    private final String sql3 = "CREATE TABLE " + N_TABLA4 +
+            "(" +
+            ID_FILA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            FuncionarioNombre + " TEXT NOT NULL, " +
+            FechaCaptura + " TEXT NOT NULL, " +
+            NombreSistemaRiego + " TEXT NOT NULL, " +
+            TipoObraCaptacion + " TEXT NOT NULL, " +
+            NombreFotoCaptacion + " TEXT NOT NULL, " +
+            TipoObraConduccion + " TEXT NOT NULL, " +
+            CapacidadObraConduccion + " TEXT NOT NULL, " +
+            NombreFotoConduccion + " TEXT NOT NULL, " +
+            TipoObraDistribucion + " TEXT NOT NULL, " +
+            CapacidadObraDistribucion + " TEXT NOT NULL, " +
+            NombreFotoDistribucion + " TEXT NOT NULL, " +
+            CapacidadLaguna + " TEXT NOT NULL, " +
+            EspejoAguaLaguna + " TEXT NOT NULL, " +
+            TipoLaguna + " TEXT NOT NULL, " +
+            AlturaDiqueLaguna + " TEXT NOT NULL, " +
+            LongitudDiqueLaguna + " TEXT NOT NULL, " +
+            SuperficieAreaRiego + " TEXT NOT NULL, " +
+            CultivosAreaRiego + " TEXT NOT NULL, " +
+            MetodosRiego + " TEXT NOT NULL, " +
+            AreaRegable + " TEXT NOT NULL, " +
+            AreaBajoRiego + " TEXT NOT NULL, " +
+            AreaRegada + " TEXT NOT NULL, " +
+            NombreFotoAreaRiego + " TEXT NOT NULL, " +
+            Problemas + " TEXT NOT NULL, " +
+            Observacion + " TEXT NOT NULL, " +
+            Longitud + " TEXT NOT NULL, " +
+            Latitud + " TEXT NOT NULL" + " )";
+
 
 
     /**
@@ -163,6 +203,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL( sql );
         db.execSQL( sql1 );
         db.execSQL( sql2 );
+        db.execSQL( sql3 );
 
     }
 
@@ -174,10 +215,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA );
             db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA2 );
             db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA3 );
+            db.execSQL( "DROP TABLE IF EXISTS " + N_TABLA4 );
             //y luego creamos la nueva tabla
             db.execSQL( sql );
             db.execSQL( sql1 );
             db.execSQL( sql2 );
+            db.execSQL( sql3 );
         }
     }
 
