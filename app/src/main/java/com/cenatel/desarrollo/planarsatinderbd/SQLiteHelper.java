@@ -35,7 +35,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     //****************FIN CAMPOS COMUNES BD*******************************************************//
 
     //**********BASE DE DATOS VIALIDAD**************************************//
-    public static final String N_TABLA = "Tabla_planarsat_vialidad";
+    public static final String N_TABLA = "systemPlanarsat_vialidad";
     public static final String PuntoOrigen = "punto_origen";
     public static final String PuntoDestino = "punto_destino";
     public static final String Latitudpan = "latitud_pan";

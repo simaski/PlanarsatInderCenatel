@@ -1,5 +1,8 @@
 package com.cenatel.desarrollo.planarsatinder;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +12,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -28,9 +33,19 @@ import android.widget.Toast;
 
 import com.cenatel.desarrollo.planarsatinderbd.SQLite;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpParams;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -217,6 +232,8 @@ public class Vialidad extends Fragment implements LocationListener {
 
                     Log.i("Aqui", "DDDDDDDDD "+st_et_inspectorR);
 
+                    new MyAsyncTask(getActivity()).execute();
+
                     sqlite = new SQLite(getActivity());
                     sqlite.abrir();
                     sqlite.addRegistro(st_et_inspectorR, st_et_fechaCapturaR, st_et_tipoObraCaptacionR, st_et_puntoOrigen, st_et_puntoDestino, st_longitudpanR, st_latitudpanR, st_longituddetR, st_latituddetR,
@@ -343,6 +360,130 @@ public class Vialidad extends Fragment implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    //@SuppressLint("NewApi")
+    //@TargetApi(Build.VERSION_CODES.CUPCAKE)
+    public class MyAsyncTask extends AsyncTask<String, Void, String> {
+
+        private static final int REGISTRATION_TIMEOUT = 3 * 1000;
+        private static final int WAIT_TIMEOUT = 30 * 1000;
+        private final HttpClient httpclient = new DefaultHttpClient();
+
+        final HttpParams params = httpclient.getParams();
+        HttpResponse response;
+        private String content =  null;
+        private boolean error = false;
+
+        private Context mContext;
+        private int NOTIFICATION_ID = 1;
+        private Notification mNotification;
+        private NotificationManager mNotificationManager;
+
+
+        public MyAsyncTask(Context context){
+
+            this.mContext = context;
+
+            //Get the notification manager
+            mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        }
+
+
+        protected void onPreExecute() {
+            //createNotification("Data download is in progress","");
+            //pb.setVisibility(View.GONE);
+            //progressBar.show();
+            Toast.makeText(mContext, "Envio de datos en progreso", Toast.LENGTH_LONG).show();
+
+        }
+
+        protected String doInBackground(String... urls) {
+
+            String URL = null;
+			/*String param1 = etNombre.getText().toString();
+			String param2 = etClave.getText().toString();*/
+
+            /*for (int i = 0; i < 100; i++) {
+                try {
+                    Thread.sleep(50);
+                    progressBar.setProgress(i + 1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }*/
+
+            ArrayList<NameValuePair> postValores = new ArrayList<NameValuePair>();
+            postValores.add(new BasicNameValuePair("nombreInspector", st_et_inspectorR));
+            postValores.add(new BasicNameValuePair("fechaCaptura", st_et_fechaCapturaR));
+            postValores.add(new BasicNameValuePair("tipoObra", st_et_tipoObraCaptacionR));
+            postValores.add(new BasicNameValuePair("puntoOrigen", st_et_puntoOrigen));
+            postValores.add(new BasicNameValuePair("puntoDestino", st_et_puntoDestino));
+            postValores.add(new BasicNameValuePair("longitudPanoramica", st_longitudpanR));
+            postValores.add(new BasicNameValuePair("latitudPanoramica", st_latitudpanR));
+            postValores.add(new BasicNameValuePair("longitudDetalle", st_longituddetR));
+            postValores.add(new BasicNameValuePair("latitudDetalle", st_latituddetR));
+            postValores.add(new BasicNameValuePair("tipoPavimento", st_spi_tipopavimentoR));
+            postValores.add(new BasicNameValuePair("problemasEncontrados", st_et_problemas));
+            postValores.add(new BasicNameValuePair("solucionesRecomendadas", st_et_observaciones));
+            postValores.add(new BasicNameValuePair("nombreFotoPanaromica", st_nombrePanoramica));
+            postValores.add(new BasicNameValuePair("nombreFotoDetalle", st_nombreDetalle));
+
+
+            String respuesta = null;
+            try {
+                respuesta=CustomHttpClient.executeHttpPost("http://apirest.fii.gob.ve/vialidad/", postValores);
+                //respuesta = CustomHttpClient.ejecutaHttpPost("http://cenatelgeo.fii.gob.ve/insertar.php", postValores);
+                //res = respuesta.toString();
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+                Log.w("HTTP2:", e);
+                content = e.getMessage();
+                error = true;
+                cancel(true);
+            } catch (IOException e) {
+                Log.w("HTTP3:",e );
+                content = e.getMessage();
+                error = true;
+                cancel(true);
+            }catch (Exception e) {
+                Log.w("HTTP4:",e );
+                content = e.getMessage();
+                error = true;
+                cancel(true);
+            }
+
+
+            return content;
+        }
+
+        protected void onProgressUpdate(Integer... progress){
+            //pb.setProgress(progress[0]);
+        }
+
+        protected void onCancelled() {
+            //createNotification("Error occured during data download",content);
+            //pb.setVisibility(View.GONE);
+            //progressBar.dismiss();
+            Toast.makeText(mContext, "Error ocurrido durante la transmision de los datos. Por favor revisa tu conexion a Internet..!", Toast.LENGTH_LONG).show();
+        }
+
+        protected void onPostExecute(String content) {
+            if (error) {
+                //createNotification("Data download ended abnormally!",content);
+                //pb.setVisibility(View.GONE);
+                //progressBar.dismiss();
+                Toast.makeText(mContext, "Envio de datos Anormales", Toast.LENGTH_LONG).show();
+            } else {
+                //createNotification("Data download is complete!","");
+                //pb.setVisibility(View.GONE);
+                //progressBar.dismiss();
+                Toast.makeText(mContext, "Envio de datos Completo!!!!", Toast.LENGTH_LONG).show();
+                //tvResultado.setText("Bienvenidos a JavaAndroid");
+            }
+        }
 
     }
 
