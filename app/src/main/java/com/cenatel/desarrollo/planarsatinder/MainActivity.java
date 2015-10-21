@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                 menuItem.setChecked(true);
                                 //textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
-                                /*VerRegistrosFragment fragment3 = new VerRegistrosFragment();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction3.replace(R.id.frame, fragment3);
-                                fragmentTransaction3.commit();*/
+                                ListViewDemoFragment fragment4 = new ListViewDemoFragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction4 = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction4.replace(R.id.frame, fragment4);
+                                fragmentTransaction4.commit();
                                 return true;
                             case R.id.item_navigation_drawer_drafts:
                                 menuItem.setChecked(true);
